@@ -31,10 +31,25 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+  var favoritesSet = <WordPair>{};
 
   void getNext() {
     current = WordPair.random();
     notifyListeners();
+  }
+
+  void toggleFavorite() {
+    if (favoritesSet.contains(current)) {
+      favoritesSet.remove(current);
+    } else {
+      favoritesSet.add(current);
+    }
+
+    notifyListeners();
+  }
+
+  bool isCurrentInFavorites() {
+    return favoritesSet.contains(current);
   }
 }
 
@@ -43,6 +58,12 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
+    IconData icon;
+    if (appState.isCurrentInFavorites()) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
 
     return Scaffold(
       body: Center(
@@ -57,12 +78,25 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  //print("button pressed");
-                  appState.getNext();
-                },
-                child: const Text("Next")),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton.icon(
+                    icon: Icon(icon),
+                    onPressed: () {
+                      appState.toggleFavorite();
+                    },
+                    label: const Text("Favorite")
+                ),
+                const SizedBox(width: 10,),
+                ElevatedButton(
+                    onPressed: () {
+                      appState.getNext();
+                    },
+                    child: const Text("Next")
+                ),
+              ],
+            ),
           ],
         ),
       ),
