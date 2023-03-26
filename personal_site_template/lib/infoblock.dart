@@ -17,12 +17,12 @@ class InfoBlock extends StatelessWidget {
         ?.copyWith(color: theme.colorScheme.onPrimary);
 
     return Container(
+      width: 210,
       padding: const EdgeInsets.all(26),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: Colors.white10),
-      alignment: Alignment.center,
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+
         children: [
           Text(
             title,
