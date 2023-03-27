@@ -22,7 +22,6 @@ class Contact extends StatelessWidget {
         ?.copyWith(color: theme.colorScheme.onPrimary);
 
     return Container(
-      width: 662,
       padding: const EdgeInsets.all(26),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: Colors.white10),
@@ -34,9 +33,9 @@ class Contact extends StatelessWidget {
           ),
           const SizedBox(height: 26),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Expanded(flex: 1, child: SizedBox(height: 1)),
-              FilledButton.tonal(
+              FilledButton(
                   onPressed: onContactPressed,
                   child: Container(
                       padding: const EdgeInsets.all(16),

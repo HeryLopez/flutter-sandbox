@@ -9,8 +9,6 @@ class Photo extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       child: Image.asset(
         'images/profile_image.jpg',
-        height: 475,
-        width: 300,
         fit: BoxFit.cover,
       ),
     );
