@@ -8,21 +8,29 @@ class InfoBlock extends StatelessWidget {
       {super.key,
       required this.title,
       required this.body,
-      this.backgroundColor});
+      this.backgroundColor,
+      this.textColor});
 
   final String title;
   final String body;
   final Color? backgroundColor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final styleTitle = theme.textTheme.displayMedium
-        ?.copyWith(color: theme.colorScheme.onPrimary);
+    final styleTitle = theme.textTheme.displaySmall?.copyWith(
+        color: textColor ?? theme.colorScheme.onPrimary,
+        fontWeight: FontWeight.w600,
+        height: 1,
+        fontSize: 35);
 
-    final styleBody = theme.textTheme.titleLarge
-        ?.copyWith(color: theme.colorScheme.onPrimary);
+    final styleBody = theme.textTheme.titleLarge?.copyWith(
+        color: textColor ?? theme.colorScheme.onPrimary,
+        fontWeight: FontWeight.w100,
+        height: 1,
+        fontSize: 16);
 
     return Container(
       padding: const EdgeInsets.all(26),
@@ -31,6 +39,7 @@ class InfoBlock extends StatelessWidget {
           boxShadow: [ThemeUtils().getDefaultShadow(context)],
           color: backgroundColor ?? theme.colorScheme.defaultBlockBackground),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             title,
@@ -42,7 +51,7 @@ class InfoBlock extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             body,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
             style: styleBody,

@@ -10,13 +10,15 @@ class ImageBlock extends StatelessWidget {
       this.backgroundImagePath,
       this.centralImagePath,
       required this.onBlockPressed,
-      this.title});
+      this.title,
+      this.backgroundGradient});
 
   final Color? backgroundColor;
   final String? backgroundImagePath;
   final String? centralImagePath;
   final VoidCallback onBlockPressed;
   final String? title;
+  final LinearGradient? backgroundGradient;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,21 @@ class ImageBlock extends StatelessWidget {
     final styleBody = theme.textTheme.labelLarge
         ?.copyWith(color: theme.colorScheme.onPrimary);
 
+    Color? getBackgroundColor() {
+      if (backgroundGradient == null) {
+        return backgroundColor ?? theme.colorScheme.defaultBlockBackground;
+      } else {
+        return null;
+      }
+    }
+
     return Container(
       height: 300,
       width: 300,
       decoration: BoxDecoration(
+        gradient: backgroundGradient,
         borderRadius: BorderRadius.circular(16),
-        color: backgroundColor ?? theme.colorScheme.defaultBlockBackground,
+        color: getBackgroundColor(),
         boxShadow: [ThemeUtils().getDefaultShadow(context)],
       ),
       child: ClipRRect(
@@ -43,6 +54,27 @@ class ImageBlock extends StatelessWidget {
                   width: double.maxFinite,
                   fit: BoxFit.cover,
                 ),
+              if (centralImagePath != null)
+                Center(
+                  child: Image.asset(
+                    centralImagePath!,
+                    height: 85,
+                    width: 85,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              if (title != null)
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.black54),
+                  child: Text(
+                    title!,
+                    style: styleBody,
+                  ),
+                ),
               Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -55,26 +87,6 @@ class ImageBlock extends StatelessWidget {
                       width: double.maxFinite,
                     )),
               ),
-              if (centralImagePath != null)
-                Center(
-                  child: Image.asset(
-                    centralImagePath!,
-                    height: 80,
-                    width: 80,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              if (title != null)
-                Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.black54),
-                    child: Text(
-                      title!,
-                      style: styleBody,
-                    )),
             ],
           )),
     );

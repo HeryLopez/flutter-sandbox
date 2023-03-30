@@ -13,4 +13,20 @@ class ThemeUtils {
           )
         : const BoxShadow(color: Colors.transparent);
   }
+
+  LinearGradient getInstagramGradient() {
+    return const LinearGradient(
+      begin: Alignment.topRight,
+      end: Alignment.bottomLeft,
+      colors: [
+        Color(0xFF7638FA),
+        Color(0xFFD300C5),
+        Color(0xFFFF0069),
+        Color(0xFFFF7A00),
+        Color(0xFFFFD600),
+      ],
+    );
+  }
+
+
 }

@@ -18,7 +18,7 @@ class Contact extends StatelessWidget {
     final theme = Theme.of(context);
 
     final styleMainText = theme.textTheme.titleLarge
-        ?.copyWith(fontWeight: FontWeight.w600, height: 1.2, fontSize: 55);
+        ?.copyWith(fontWeight: FontWeight.w600, height: 1.2, fontSize: 50);
 
     final styleButtonText =
         theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);

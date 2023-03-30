@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_template/themes/theme_utils.dart';
+import 'package:personal_site_template/utils/dimensions.dart';
 import 'package:personal_site_template/widgets/about_block.dart';
+import 'package:personal_site_template/widgets/contact.dart';
 import 'package:personal_site_template/widgets/image_block.dart';
 import 'package:personal_site_template/widgets/info_block.dart';
 import 'package:personal_site_template/widgets/light_bulb.dart';
@@ -7,7 +10,6 @@ import 'package:personal_site_template/widgets/photo.dart';
 import 'package:personal_site_template/provider/dark_theme_state.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'widgets/contact.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -43,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildRow2() {
+  Widget _buildRow2(BuildContext context) {
+    var darkThemeState = context.watch<DarkThemeState>();
     return SizedBox(
       height: 450,
       child: Row(
@@ -63,63 +66,105 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: Dimensions.spacing),
                 Expanded(
                   flex: 6,
                   child: Row(
                     children: const [
-                      InfoBlock(
-                        title: "10+",
-                        body: "Years Experience",
-                        backgroundColor: Colors.teal,
-                      ),
-                      SizedBox(width: 16),
                       Expanded(
-                          child: AboutBlock(
-                              title: "About",
-                              body:
-                                  "I am passionate about development and even more about Android.\n\nIf you are interested in diplomas: I have an engineering degree and also a master's degree in management of information systems.")),
+                        child: InfoBlock(
+                          title: "10+",
+                          body: "Years Dev\nExperience",
+                          backgroundColor: Colors.teal,
+                        ),
+                      ),
+                      SizedBox(width: Dimensions.spacing),
+                      Expanded(
+                        child: InfoBlock(
+                          title: "5+",
+                          textColor: Colors.black,
+                          body: "Years Mobile\nDev Experience",
+                          backgroundColor: Color(0xFFFFC03D),
+                        ),
+                      ),
+                      SizedBox(width: Dimensions.spacing),
+                      Expanded(
+                        child: InfoBlock(
+                          title: "Android Flutter+",
+                          body: "Android Flutter",
+                          backgroundColor: Colors.teal,
+                        ),
+                      ),
                     ],
                   ),
                 )
               ],
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: Dimensions.spacing),
           const Expanded(flex: 1, child: Photo()),
+          const SizedBox(width: Dimensions.spacing),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Expanded(
+                  flex: 1,
+                  child: InfoBlock(
+                    title: "10+",
+                    body: "Years Dev\nExperience",
+                    backgroundColor: Colors.teal,
+                  ),
+                ),
+                const SizedBox(height: Dimensions.spacing),
+                Expanded(
+                  flex: 2,
+                  child: ImageBlock(
+                    title: "Based in :",
+                    backgroundImagePath: darkThemeState.darkTheme
+                        ? "images/location_night.png"
+                        : "images/location_day.png",
+                    onBlockPressed: () {
+                      const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
+                      _launchURL(url);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildRow3(BuildContext context) {
+    var darkThemeState = context.watch<DarkThemeState>();
     return SizedBox(
       height: 220,
       child: Expanded(
         child: Row(
           children: [
             ImageBlock(
-              backgroundImagePath: "images/instagram.png",
+              centralImagePath: darkThemeState.darkTheme
+                  ? "images/instagram_night.png"
+                  : "images/instagram_light.png",
+              backgroundGradient: darkThemeState.darkTheme
+                  ? ThemeUtils().getInstagramGradient()
+                  : null,
+              backgroundColor: null,
               onBlockPressed: () {
                 const url = 'https://www.instagram.com/walkingthemilkyway/';
                 _launchURL(url);
               },
             ),
-            const SizedBox(width: 16),
-            ImageBlock(
-              backgroundImagePath: "images/instagram_light.png",
-              onBlockPressed: () {
-                const url = 'https://www.instagram.com/walkingthemilkyway/';
-                _launchURL(url);
-              },
-            ),
-            const SizedBox(width: 16),
+            const SizedBox(width: Dimensions.spacing),
             const InfoBlock(
               title: "10+",
               body: "Years Experience",
               backgroundColor: Colors.teal,
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: Dimensions.spacing),
             const Expanded(
                 child: AboutBlock(
                     title: "About",
@@ -138,33 +183,28 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         children: [
           ImageBlock(
-            centralImagePath: "images/linkedin.png",
+            backgroundColor: darkThemeState.darkTheme
+                ? const Color(0xFF0A66C2)
+                : Colors.white,
+            centralImagePath: darkThemeState.darkTheme
+                ? "images/linkedin_night.png"
+                : "images/linkedin_day.png",
             onBlockPressed: () {
-              const url = 'https://www.instagram.com/walkingthemilkyway/';
+              const url = 'https:www.linkedin.com/in/hery-lopez-r';
               _launchURL(url);
             },
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: Dimensions.spacing),
           ImageBlock(
-            centralImagePath: "images/github_light.png",
+            centralImagePath: darkThemeState.darkTheme
+                ? "images/github_night.png"
+                : "images/github_light.png",
             onBlockPressed: () {
-              const url = 'https://www.instagram.com/walkingthemilkyway/';
+              const url = 'https://github.com/HeryLopez';
               _launchURL(url);
             },
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: ImageBlock(
-              title: "Based in :",
-              backgroundImagePath: darkThemeState.darkTheme
-                  ? "images/location_night.png"
-                  : "images/location_day.png",
-              onBlockPressed: () {
-                const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
-                _launchURL(url);
-              },
-            ),
-          ),
+
         ],
       ),
     );
@@ -178,14 +218,14 @@ class _MyHomePageState extends State<MyHomePage> {
           alignment: Alignment.center,
           constraints: const BoxConstraints(minWidth: 600, maxWidth: 1400),
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(150, 0, 150, 100),
+            padding: const EdgeInsets.fromLTRB(100, 0, 100, 100),
             children: [
               _buildRow1(context),
-              const SizedBox(height: 16),
-              _buildRow2(),
-              const SizedBox(height: 16),
+              const SizedBox(height: Dimensions.spacing),
+              _buildRow2(context),
+              const SizedBox(height: Dimensions.spacing),
               _buildRow3(context),
-              const SizedBox(height: 16),
+              const SizedBox(height: Dimensions.spacing),
               _buildRow4(context),
             ],
           ),
