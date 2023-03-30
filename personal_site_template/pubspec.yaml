@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.20
   provider: ^6.0.0
   flutter_glow: ^0.2.0
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -68,7 +69,11 @@ flutter:
     - images/instagram.png
     - images/location_night.png
     - images/location_day.png
-
+    - images/github_light.png
+    - images/github_night.png
+    - images/instagram_night.png
+    - images/instagram_light.png
+    - images/linkedin.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

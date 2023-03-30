@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_template/themes/extensions_theme.dart';
+import 'package:personal_site_template/themes/theme_utils.dart';
 
 class Contact extends StatelessWidget {
   const Contact(
@@ -15,16 +17,25 @@ class Contact extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final styleMainText = theme.textTheme.displayMedium
-        ?.copyWith(color: theme.colorScheme.onPrimary);
+    final styleMainText = theme.textTheme.titleLarge
+        ?.copyWith(fontWeight: FontWeight.w600, height: 1.2, fontSize: 55);
 
-    final styleButtonText = theme.textTheme.headlineSmall
-        ?.copyWith(color: theme.colorScheme.onPrimary);
+    final styleButtonText =
+        theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
+
+    final styleButton = FilledButton.styleFrom(
+        backgroundColor: theme.colorScheme.defaultButtonColor);
+
+    /*onPressed: onPressed, child: child).filledButtonTheme.style?.copyWith(
+        foregroundColor: );*/
 
     return Container(
       padding: const EdgeInsets.all(26),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16), color: Colors.white10),
+
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [ThemeUtils().getDefaultShadow(context)],
+          color: theme.colorScheme.defaultBlockBackground),
       child: Column(
         children: [
           Text(
@@ -36,6 +47,7 @@ class Contact extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FilledButton(
+                  style: styleButton,
                   onPressed: onContactPressed,
                   child: Container(
                       padding: const EdgeInsets.all(16),
@@ -49,4 +61,6 @@ class Contact extends StatelessWidget {
       ),
     );
   }
+
+  getDefaultShadow() {}
 }

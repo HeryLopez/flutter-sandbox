@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_glow/flutter_glow.dart';
+import 'package:personal_site_template/themes/extensions_theme.dart';
+
+import '../themes/theme_utils.dart';
 
 class LightBulb extends StatelessWidget {
-  const LightBulb({super.key, required this.onLightBulbPress, required this.isOn});
+  const LightBulb(
+      {super.key, required this.onLightBulbPress, required this.isOn});
 
   final VoidCallback onLightBulbPress;
   final bool isOn;
@@ -12,20 +16,24 @@ class LightBulb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: 100,
       height: 120,
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(40),
             bottomRight: Radius.circular(40),
           ),
-          color: Colors.white10),
+          boxShadow: [ThemeUtils().getDefaultShadow(context)],
+          color: theme.colorScheme.defaultBlockBackground),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            decoration: BoxDecoration(color: isOn ? glowColor : Colors.black,),
+            decoration: BoxDecoration(
+              color: isOn ? glowColor : Colors.black,
+            ),
             child: const SizedBox(
               width: 6,
               height: 45,
@@ -39,8 +47,8 @@ class LightBulb extends StatelessWidget {
               color: Colors.white,
               iconSize: 48,
               icon: GlowIcon(
-                  isOn ? Icons.lightbulb : Icons.lightbulb_outline,
-                color:  isOn ? glowColor : Colors.black,
+                isOn ? Icons.lightbulb : Icons.lightbulb_outline,
+                color: isOn ? glowColor : Colors.black,
                 glowColor: isOn ? glowColor : Colors.transparent,
               ),
             ),

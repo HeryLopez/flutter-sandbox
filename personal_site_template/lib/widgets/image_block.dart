@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_template/themes/extensions_theme.dart';
+
+import '../themes/theme_utils.dart';
 
 class ImageBlock extends StatelessWidget {
   const ImageBlock(
       {super.key,
-      required this.path,
+      this.backgroundColor,
+      this.backgroundImagePath,
+      this.centralImagePath,
       required this.onBlockPressed,
       this.title});
 
-  final String path;
+  final Color? backgroundColor;
+  final String? backgroundImagePath;
+  final String? centralImagePath;
   final VoidCallback onBlockPressed;
   final String? title;
 
@@ -16,19 +23,26 @@ class ImageBlock extends StatelessWidget {
     final theme = Theme.of(context);
     final styleBody = theme.textTheme.labelLarge
         ?.copyWith(color: theme.colorScheme.onPrimary);
+
     return Container(
       height: 300,
       width: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: backgroundColor ?? theme.colorScheme.defaultBlockBackground,
+        boxShadow: [ThemeUtils().getDefaultShadow(context)],
+      ),
       child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(
             children: [
-              Image.asset(
-                path,
-                height: double.maxFinite,
-                width: double.maxFinite,
-                fit: BoxFit.cover,
-              ),
+              if (backgroundImagePath != null)
+                Image.asset(
+                  backgroundImagePath!,
+                  height: double.maxFinite,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ),
               Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -41,6 +55,15 @@ class ImageBlock extends StatelessWidget {
                       width: double.maxFinite,
                     )),
               ),
+              if (centralImagePath != null)
+                Center(
+                  child: Image.asset(
+                    centralImagePath!,
+                    height: 80,
+                    width: 80,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               if (title != null)
                 Container(
                     padding: const EdgeInsets.all(12),

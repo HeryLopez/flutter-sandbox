@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:personal_site_template/image_block.dart';
-import 'package:personal_site_template/info_block.dart';
-import 'package:personal_site_template/light_bulb.dart';
-import 'package:personal_site_template/photo.dart';
+import 'package:personal_site_template/widgets/about_block.dart';
+import 'package:personal_site_template/widgets/image_block.dart';
+import 'package:personal_site_template/widgets/info_block.dart';
+import 'package:personal_site_template/widgets/light_bulb.dart';
+import 'package:personal_site_template/widgets/photo.dart';
 import 'package:personal_site_template/provider/dark_theme_state.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'contact.dart';
+import 'widgets/contact.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -53,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 5,
+                  flex: 10,
                   child: Contact(
                     messageText: "Do you have any idea to work together?",
                     contactButtonText: "Contact me 👋",
@@ -64,20 +65,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  flex: 3,
+                  flex: 6,
                   child: Row(
                     children: const [
-                      Expanded(
-                          child:
-                              InfoBlock(title: "2+", body: "Years Experience")),
+                      InfoBlock(
+                        title: "10+",
+                        body: "Years Experience",
+                        backgroundColor: Colors.teal,
+                      ),
                       SizedBox(width: 16),
                       Expanded(
-                          child:
-                              InfoBlock(title: "2+", body: "Years Experience")),
-                      SizedBox(width: 16),
-                      Expanded(
-                          child:
-                              InfoBlock(title: "2+", body: "Years Experience")),
+                          child: AboutBlock(
+                              title: "About",
+                              body:
+                                  "I am passionate about development and even more about Android.\n\nIf you are interested in diplomas: I have an engineering degree and also a master's degree in management of information systems.")),
                     ],
                   ),
                 )
@@ -92,49 +93,92 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildRow3(BuildContext context) {
+    return SizedBox(
+      height: 220,
+      child: Expanded(
+        child: Row(
+          children: [
+            ImageBlock(
+              backgroundImagePath: "images/instagram.png",
+              onBlockPressed: () {
+                const url = 'https://www.instagram.com/walkingthemilkyway/';
+                _launchURL(url);
+              },
+            ),
+            const SizedBox(width: 16),
+            ImageBlock(
+              backgroundImagePath: "images/instagram_light.png",
+              onBlockPressed: () {
+                const url = 'https://www.instagram.com/walkingthemilkyway/';
+                _launchURL(url);
+              },
+            ),
+            const SizedBox(width: 16),
+            const InfoBlock(
+              title: "10+",
+              body: "Years Experience",
+              backgroundColor: Colors.teal,
+            ),
+            const SizedBox(width: 16),
+            const Expanded(
+                child: AboutBlock(
+                    title: "About",
+                    body:
+                        "I am passionate about development and even more about Android.\n\nIf you are interested in diplomas: I have an engineering degree and also a master's degree in management of information systems.")),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRow4(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
-    return Row(
-      children: [
-        ImageBlock(
-          path: "images/instagram.png",
-          onBlockPressed: () {
-            const url = 'https://www.instagram.com/walkingthemilkyway/';
-            _launchURL(url);
-          },
-        ),
-        const SizedBox(width: 16),
-        ImageBlock(
-          path: "images/instagram.png",
-          onBlockPressed: () {
-            const url = 'https://www.instagram.com/walkingthemilkyway/';
-            _launchURL(url);
-          },
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: ImageBlock(
-            title: "Based in :",
-            path:  darkThemeState.darkTheme ? "images/location_night.png" : "images/location_day.png",
+    return SizedBox(
+      height: 220,
+      child: Row(
+        children: [
+          ImageBlock(
+            centralImagePath: "images/linkedin.png",
             onBlockPressed: () {
-              const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
+              const url = 'https://www.instagram.com/walkingthemilkyway/';
               _launchURL(url);
             },
           ),
-        ),
-      ],
+          const SizedBox(width: 16),
+          ImageBlock(
+            centralImagePath: "images/github_light.png",
+            onBlockPressed: () {
+              const url = 'https://www.instagram.com/walkingthemilkyway/';
+              _launchURL(url);
+            },
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: ImageBlock(
+              title: "Based in :",
+              backgroundImagePath: darkThemeState.darkTheme
+                  ? "images/location_night.png"
+                  : "images/location_day.png",
+              onBlockPressed: () {
+                const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
+                _launchURL(url);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Center(
         child: Container(
           alignment: Alignment.center,
           constraints: const BoxConstraints(minWidth: 600, maxWidth: 1400),
-          padding: const EdgeInsets.symmetric(horizontal: 150),
           child: ListView(
+            padding: const EdgeInsets.fromLTRB(150, 0, 150, 100),
             children: [
               _buildRow1(context),
               const SizedBox(height: 16),
@@ -142,12 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 16),
               _buildRow3(context),
               const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  InfoBlock(title: "2+", body: "Years Experience"),
-                ],
-              ),
+              _buildRow4(context),
             ],
           ),
         ),
