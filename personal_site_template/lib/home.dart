@@ -4,6 +4,7 @@ import 'package:personal_site_template/utils/dimensions.dart';
 import 'package:personal_site_template/widgets/about_block.dart';
 import 'package:personal_site_template/widgets/contact.dart';
 import 'package:personal_site_template/widgets/image_block.dart';
+import 'package:personal_site_template/widgets/image_versus_block.dart';
 import 'package:personal_site_template/widgets/info_block.dart';
 import 'package:personal_site_template/widgets/light_bulb.dart';
 import 'package:personal_site_template/widgets/photo.dart';
@@ -89,10 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       SizedBox(width: Dimensions.spacing),
                       Expanded(
-                        child: InfoBlock(
-                          title: "Android Flutter+",
-                          body: "Android Flutter",
-                          backgroundColor: Colors.teal,
+                        child: ImageVersusBlock(
+                          topColor: Color(0xFF3EDA84),
+                          bottomColor: Color(0xFF62C8F9),
+                          topText: "Android",
+                          bottomText: "Flutter",
+                          topImagePath: "images/android.png",
+                          bottomImagePath: "images/flutter.png",
                         ),
                       ),
                     ],
@@ -204,7 +208,6 @@ class _MyHomePageState extends State<MyHomePage> {
               _launchURL(url);
             },
           ),
-
         ],
       ),
     );

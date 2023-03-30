@@ -26,13 +26,9 @@ class Contact extends StatelessWidget {
     final styleButton = FilledButton.styleFrom(
         backgroundColor: theme.colorScheme.defaultButtonColor);
 
-    /*onPressed: onPressed, child: child).filledButtonTheme.style?.copyWith(
-        foregroundColor: );*/
-
     return Container(
       padding: const EdgeInsets.all(26),
       decoration: BoxDecoration(
-
           borderRadius: BorderRadius.circular(16),
           boxShadow: [ThemeUtils().getDefaultShadow(context)],
           color: theme.colorScheme.defaultBlockBackground),
