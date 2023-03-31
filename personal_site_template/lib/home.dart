@@ -83,7 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Expanded(
                         child: InfoBlock(
                           title: "5+",
-                          textColor: Colors.black,
+                          textTitleColor: Colors.black,
+                          textBodyColor: Colors.black,
                           body: "Years Mobile\nDev Experience",
                           backgroundColor: Color(0xFFFFC03D),
                         ),
@@ -115,9 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Expanded(
                   flex: 1,
                   child: InfoBlock(
-                    title: "10+",
-                    body: "Years Dev\nExperience",
-                    backgroundColor: Colors.teal,
+                    title: "Hery Lopez",
+                    body: "Mobile App Develope",
                   ),
                 ),
                 const SizedBox(height: Dimensions.spacing),

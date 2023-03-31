@@ -7,27 +7,29 @@ class InfoBlock extends StatelessWidget {
   const InfoBlock(
       {super.key,
       required this.title,
-      required this.body,
+      this.body,
       this.backgroundColor,
-      this.textColor});
+      this.textTitleColor,
+      this.textBodyColor});
 
   final String title;
-  final String body;
+  final String? body;
   final Color? backgroundColor;
-  final Color? textColor;
+  final Color? textTitleColor;
+  final Color? textBodyColor;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final styleTitle = theme.textTheme.displaySmall?.copyWith(
-        color: textColor ?? theme.colorScheme.onPrimary,
+    final styleTitle = theme.textTheme.titleLarge?.copyWith(
+        color: textTitleColor,
         fontWeight: FontWeight.w600,
         height: 1,
         fontSize: 35);
 
     final styleBody = theme.textTheme.titleLarge?.copyWith(
-        color: textColor ?? theme.colorScheme.onPrimary,
+        color: textBodyColor,
         fontWeight: FontWeight.w100,
         height: 1,
         fontSize: 16);
@@ -49,13 +51,14 @@ class InfoBlock extends StatelessWidget {
             style: styleTitle,
           ),
           const SizedBox(height: 6),
-          Text(
-            body,
-            maxLines: 2,
-            overflow: TextOverflow.fade,
-            textAlign: TextAlign.center,
-            style: styleBody,
-          ),
+          if (body != null)
+            Text(
+              body!,
+              maxLines: 2,
+              overflow: TextOverflow.fade,
+              textAlign: TextAlign.center,
+              style: styleBody,
+            ),
         ],
       ),
     );

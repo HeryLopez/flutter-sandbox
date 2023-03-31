@@ -28,7 +28,7 @@ class ImageVersusBlock extends StatelessWidget {
 
     final styleTitle = theme.textTheme.displaySmall?.copyWith(
         color: Colors.white,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w300,
         height: 1.5,
         fontSize: 16);
 
