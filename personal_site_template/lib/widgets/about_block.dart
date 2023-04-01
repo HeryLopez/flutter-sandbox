@@ -16,6 +16,12 @@ class AboutBlock extends StatelessWidget {
     final styleTitle =
         theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold);
 
+
+    final styleBody = theme.textTheme.titleLarge?.copyWith(
+        fontWeight: FontWeight.w100,
+        height: 1,
+        fontSize: 16);
+
     return Container(
       padding: const EdgeInsets.all(26),
       decoration: BoxDecoration(
@@ -36,6 +42,7 @@ class AboutBlock extends StatelessWidget {
           Text(
             body,
             overflow: TextOverflow.fade,
+            style: styleBody,
           ),
         ],
       ),

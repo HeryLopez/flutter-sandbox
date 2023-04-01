@@ -6,13 +6,13 @@ import '../themes/theme_utils.dart';
 class InfoBlock extends StatelessWidget {
   const InfoBlock(
       {super.key,
-      required this.title,
+      this.title,
       this.body,
       this.backgroundColor,
       this.textTitleColor,
       this.textBodyColor});
 
-  final String title;
+  final String? title;
   final String? body;
   final Color? backgroundColor;
   final Color? textTitleColor;
@@ -35,17 +35,19 @@ class InfoBlock extends StatelessWidget {
         fontSize: 16);
 
     return Container(
-      padding: const EdgeInsets.all(26),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           boxShadow: [ThemeUtils().getDefaultShadow(context)],
           color: backgroundColor ?? theme.colorScheme.defaultBlockBackground),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (title != null)
           Text(
-            title,
-            maxLines: 1,
+            title!,
+            maxLines: 2,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
             style: styleTitle,
@@ -54,7 +56,7 @@ class InfoBlock extends StatelessWidget {
           if (body != null)
             Text(
               body!,
-              maxLines: 2,
+              maxLines: 3,
               overflow: TextOverflow.fade,
               textAlign: TextAlign.center,
               style: styleBody,

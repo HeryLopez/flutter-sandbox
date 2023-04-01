@@ -12,8 +12,9 @@ class ImageVersusBlock extends StatelessWidget {
       this.topImagePath,
       this.bottomImagePath,
       this.topText,
-      this.bottomText});
+      this.bottomText, this.title});
 
+  final String? title;
   final Color topColor;
   final Color bottomColor;
   final String? topImagePath;
@@ -32,6 +33,9 @@ class ImageVersusBlock extends StatelessWidget {
         height: 1.5,
         fontSize: 16);
 
+    final styleBody = theme.textTheme.labelLarge
+        ?.copyWith(color: theme.colorScheme.onPrimary);
+
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -40,7 +44,7 @@ class ImageVersusBlock extends StatelessWidget {
         child: Stack(
           children: [
             ClipPath(
-              clipper: TriangleClipper(16),
+              clipper: TriangleClipper(16, TriangleClipperMode.slash),
               child: Container(
                 color: topColor,
               ),
@@ -50,62 +54,85 @@ class ImageVersusBlock extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
+                      Expanded(child: Container()),
                       Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              topImagePath!,
-                              height: iconSize,
-                              width: iconSize,
-                              fit: BoxFit.contain,
-                            ),
-                            if (topText != null)
-                              Text(
-                                topText!,
-                                maxLines: 1,
-                                overflow: TextOverflow.fade,
-                                textAlign: TextAlign.center,
-                                style: styleTitle,
-                              )
-                          ],
-                        ),
+                        child: IconText(
+                            imagePath: topImagePath,
+                            iconSize: iconSize,
+                            text: topText,
+                            styleText: styleTitle),
                       ),
-                      Expanded(child: Container())
                     ],
                   ),
                 ),
                 Expanded(
                   child: Row(
                     children: [
-                      Expanded(child: Container()),
+
                       Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              bottomImagePath!,
-                              height: iconSize,
-                              width: iconSize,
-                              fit: BoxFit.contain,
-                            ),
-                            if (bottomText != null)
-                              Text(
-                                bottomText!,
-                                maxLines: 1,
-                                overflow: TextOverflow.fade,
-                                textAlign: TextAlign.center,
-                                style: styleTitle,
-                              )
-                          ],
-                        ),
+                        child: IconText(
+                            imagePath: bottomImagePath,
+                            iconSize: iconSize,
+                            text: bottomText,
+                            styleText: styleTitle),
                       ),
+                      Expanded(child: Container()),
                     ],
                   ),
                 )
               ],
             ),
+            if (title != null)
+              Container(
+                padding: const EdgeInsets.all(12),
+                margin: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.black54),
+                child: Text(
+                  title!,
+                  style: styleBody,
+                ),
+              ),
           ],
         ));
+  }
+}
+
+class IconText extends StatelessWidget {
+  const IconText({
+    super.key,
+    required this.imagePath,
+    required this.iconSize,
+    required this.text,
+    required this.styleText,
+  });
+
+  final String? imagePath;
+  final double iconSize;
+  final String? text;
+  final TextStyle? styleText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          imagePath!,
+          height: iconSize,
+          width: iconSize,
+          fit: BoxFit.contain,
+        ),
+        if (text != null)
+          Text(
+            text!,
+            maxLines: 1,
+            overflow: TextOverflow.fade,
+            textAlign: TextAlign.center,
+            style: styleText,
+          )
+      ],
+    );
   }
 }

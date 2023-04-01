@@ -34,61 +34,70 @@ class ImageBlock extends StatelessWidget {
       }
     }
 
-    return Container(
-      height: 300,
-      width: 300,
-      decoration: BoxDecoration(
-        gradient: backgroundGradient,
-        borderRadius: BorderRadius.circular(16),
-        color: getBackgroundColor(),
-        boxShadow: [ThemeUtils().getDefaultShadow(context)],
-      ),
-      child: ClipRRect(
+    return AspectRatio(
+      aspectRatio: 1 / 1,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: backgroundGradient,
           borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              if (backgroundImagePath != null)
-                Image.asset(
-                  backgroundImagePath!,
-                  height: double.maxFinite,
-                  width: double.maxFinite,
-                  fit: BoxFit.cover,
-                ),
-              if (centralImagePath != null)
-                Center(
-                  child: Image.asset(
-                    centralImagePath!,
-                    height: 85,
-                    width: 85,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              if (title != null)
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  margin: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-                  decoration: BoxDecoration(
+          color: getBackgroundColor(),
+          boxShadow: [ThemeUtils().getDefaultShadow(context)],
+        ),
+        child: Row(
+          children: [
+            Flexible(
+              flex: 1,
+              child: Stack(
+                children: [
+                  if (backgroundImagePath != null)
+                    ClipRRect(
                       borderRadius: BorderRadius.circular(16),
-                      color: Colors.black54),
-                  child: Text(
-                    title!,
-                    style: styleBody,
-                  ),
-                ),
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                    customBorder: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        backgroundImagePath!,
+                        height: double.maxFinite,
+                        width: double.maxFinite,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    onTap: onBlockPressed,
-                    child: const SizedBox(
-                      height: double.maxFinite,
-                      width: double.maxFinite,
-                    )),
+                  if (centralImagePath != null)
+                    Center(
+                      child: Image.asset(
+                        centralImagePath!,
+                        height: 85,
+                        width: 85,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  if (title != null)
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.black54),
+                      child: Text(
+                        title!,
+                        style: styleBody,
+                      ),
+                    ),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                        customBorder: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        onTap: onBlockPressed,
+                        child: const SizedBox(
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                        )),
+                  ),
+                ],
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

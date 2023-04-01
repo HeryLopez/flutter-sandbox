@@ -1,3 +1,3 @@
 class Dimensions {
-  static const double spacing = 22;
+  static const double spacing = 24;
 }

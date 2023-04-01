@@ -76,6 +76,9 @@ flutter:
     - images/linkedin_day.png
     - images/android.png
     - images/flutter.png
+    - images/app1.png
+    - images/app2.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

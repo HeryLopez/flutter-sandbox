@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_template/themes/theme_utils.dart';
 import 'package:personal_site_template/utils/dimensions.dart';
+import 'package:personal_site_template/utils/strings.dart';
+import 'package:personal_site_template/utils/uri_utils.dart';
 import 'package:personal_site_template/widgets/about_block.dart';
 import 'package:personal_site_template/widgets/contact.dart';
 import 'package:personal_site_template/widgets/image_block.dart';
 import 'package:personal_site_template/widgets/image_versus_block.dart';
 import 'package:personal_site_template/widgets/info_block.dart';
 import 'package:personal_site_template/widgets/light_bulb.dart';
+import 'package:personal_site_template/widgets/my_apps_block.dart';
 import 'package:personal_site_template/widgets/photo.dart';
 import 'package:personal_site_template/provider/dark_theme_state.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -22,15 +24,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  _launchURL(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   Widget _buildRow1(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
     return Row(
@@ -49,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildRow2(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
     return SizedBox(
-      height: 450,
+      height: 470,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -63,7 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     messageText: "Do you have any idea to work together?",
                     contactButtonText: "Contact me 👋",
                     onContactPressed: () {
-                      print("Contact");
+                      const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
+                      UriUtils.launchURL(url);
                     },
                   ),
                 ),
@@ -91,13 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       SizedBox(width: Dimensions.spacing),
                       Expanded(
-                        child: ImageVersusBlock(
-                          topColor: Color(0xFF3EDA84),
-                          bottomColor: Color(0xFF62C8F9),
-                          topText: "Android",
-                          bottomText: "Flutter",
-                          topImagePath: "images/android.png",
-                          bottomImagePath: "images/flutter.png",
+                        flex: 1,
+                        child: InfoBlock(
+                          title: "10+",
+                          body: "different projects (Apps)",
+                          backgroundColor: Color(0xFFFF6D7A),
                         ),
                       ),
                     ],
@@ -110,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           const Expanded(flex: 1, child: Photo()),
           const SizedBox(width: Dimensions.spacing),
           Expanded(
+            flex: 1,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -117,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   flex: 1,
                   child: InfoBlock(
                     title: "Hery Lopez",
-                    body: "Mobile App Develope",
+                    body: "Mobile App Developer",
                   ),
                 ),
                 const SizedBox(height: Dimensions.spacing),
@@ -130,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         : "images/location_day.png",
                     onBlockPressed: () {
                       const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
-                      _launchURL(url);
+                      UriUtils.launchURL(url);
                     },
                   ),
                 ),
@@ -143,39 +136,38 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildRow3(BuildContext context) {
-    var darkThemeState = context.watch<DarkThemeState>();
     return SizedBox(
       height: 220,
-      child: Expanded(
-        child: Row(
-          children: [
-            ImageBlock(
-              centralImagePath: darkThemeState.darkTheme
-                  ? "images/instagram_night.png"
-                  : "images/instagram_light.png",
-              backgroundGradient: darkThemeState.darkTheme
-                  ? ThemeUtils().getInstagramGradient()
-                  : null,
-              backgroundColor: null,
-              onBlockPressed: () {
-                const url = 'https://www.instagram.com/walkingthemilkyway/';
-                _launchURL(url);
-              },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const [
+          Expanded(
+              flex: 2,
+              child: AboutBlock(
+                title: Strings.aboutTitle,
+                body: Strings.aboutMe,
+              )),
+          SizedBox(width: Dimensions.spacing),
+          Expanded(
+            flex: 1,
+            child: ImageVersusBlock(
+              title: "I work with :",
+              topColor: Color(0xFF3EDA84),
+              bottomColor: Color(0xFF62C8F9),
+              topText: "Android",
+              bottomText: "Flutter",
+              topImagePath: "images/android.png",
+              bottomImagePath: "images/flutter.png",
             ),
-            const SizedBox(width: Dimensions.spacing),
-            const InfoBlock(
-              title: "10+",
-              body: "Years Experience",
-              backgroundColor: Colors.teal,
+          ),
+          SizedBox(width: Dimensions.spacing),
+          Expanded(
+            flex: 1,
+            child: MyAppBlock(
+              title: "My Apps",
             ),
-            const SizedBox(width: Dimensions.spacing),
-            const Expanded(
-                child: AboutBlock(
-                    title: "About",
-                    body:
-                        "I am passionate about development and even more about Android.\n\nIf you are interested in diplomas: I have an engineering degree and also a master's degree in management of information systems.")),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -183,9 +175,23 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildRow4(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
     return SizedBox(
-      height: 220,
+      height: 240,
       child: Row(
         children: [
+          ImageBlock(
+            centralImagePath: darkThemeState.darkTheme
+                ? "images/instagram_night.png"
+                : "images/instagram_light.png",
+            backgroundGradient: darkThemeState.darkTheme
+                ? ThemeUtils().getInstagramGradient()
+                : null,
+            backgroundColor: null,
+            onBlockPressed: () {
+              const url = 'https://www.instagram.com/walkingthemilkyway/';
+              UriUtils.launchURL(url);
+            },
+          ),
+          const SizedBox(width: Dimensions.spacing),
           ImageBlock(
             backgroundColor: darkThemeState.darkTheme
                 ? const Color(0xFF0A66C2)
@@ -195,19 +201,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 : "images/linkedin_day.png",
             onBlockPressed: () {
               const url = 'https:www.linkedin.com/in/hery-lopez-r';
-              _launchURL(url);
+              UriUtils.launchURL(url);
             },
           ),
           const SizedBox(width: Dimensions.spacing),
-          ImageBlock(
-            centralImagePath: darkThemeState.darkTheme
-                ? "images/github_night.png"
-                : "images/github_light.png",
-            onBlockPressed: () {
-              const url = 'https://github.com/HeryLopez';
-              _launchURL(url);
-            },
-          ),
+          const Expanded(
+              flex: 2,
+              child: AboutBlock(
+                title: Strings.aboutTitle,
+                body: Strings.aboutMe,
+              )),
         ],
       ),
     );
@@ -215,6 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var darkThemeState = context.watch<DarkThemeState>();
     return Scaffold(
       body: Center(
         child: Container(
@@ -230,6 +234,23 @@ class _MyHomePageState extends State<MyHomePage> {
               _buildRow3(context),
               const SizedBox(height: Dimensions.spacing),
               _buildRow4(context),
+              const SizedBox(height: Dimensions.spacing),
+              Container(
+                height: 240,
+                child: Row(
+                  children: [
+                    ImageBlock(
+                      centralImagePath: darkThemeState.darkTheme
+                          ? "images/github_night.png"
+                          : "images/github_light.png",
+                      onBlockPressed: () {
+                        const url = 'https://github.com/HeryLopez';
+                        UriUtils.launchURL(url);
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
