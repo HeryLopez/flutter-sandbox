@@ -5,8 +5,8 @@ import 'package:personal_site_template/utils/uri_utils.dart';
 import '../themes/theme_utils.dart';
 import 'image_block.dart';
 
-class MyAppBlock extends StatelessWidget {
-  const MyAppBlock({super.key, required this.title});
+class MyAppsBlock extends StatelessWidget {
+  const MyAppsBlock({super.key, required this.title});
 
   final String title;
 
@@ -36,14 +36,15 @@ class MyAppBlock extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Flexible(
-              fit: FlexFit.tight,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
                     child: ImageBlock(
-                      backgroundColor: Colors.white,
+                      bodyText: "Mii Collector",
+                      isShadowEnable: false,
+                      backgroundColor: Colors.black12,
                       centralImagePath: "images/app1.png",
                       onBlockPressed: () {
                         const url =
@@ -55,7 +56,9 @@ class MyAppBlock extends StatelessWidget {
                   const SizedBox(width: 16),
                   Flexible(
                     child: ImageBlock(
-                      backgroundColor: Colors.white,
+                      bodyText: "Money Control",
+                      isShadowEnable: false,
+                      backgroundColor: Colors.black12,
                       centralImagePath: "images/app2.png",
                       onBlockPressed: () {
                         const url =

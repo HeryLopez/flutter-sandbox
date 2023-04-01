@@ -4,27 +4,36 @@ import 'package:personal_site_template/themes/extensions_theme.dart';
 import '../themes/theme_utils.dart';
 
 class ImageBlock extends StatelessWidget {
-  const ImageBlock(
-      {super.key,
-      this.backgroundColor,
-      this.backgroundImagePath,
-      this.centralImagePath,
-      required this.onBlockPressed,
-      this.title,
-      this.backgroundGradient});
+  const ImageBlock({
+    super.key,
+    this.backgroundColor,
+    this.backgroundImagePath,
+    this.centralImagePath,
+    required this.onBlockPressed,
+    this.title,
+    this.bodyText,
+    this.backgroundGradient,
+    this.isShadowEnable = true,
+  });
 
   final Color? backgroundColor;
   final String? backgroundImagePath;
   final String? centralImagePath;
   final VoidCallback onBlockPressed;
   final String? title;
+  final String? bodyText;
   final LinearGradient? backgroundGradient;
+  final bool isShadowEnable;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final styleBody = theme.textTheme.labelLarge
+
+    final styleTitle = theme.textTheme.labelLarge
         ?.copyWith(color: theme.colorScheme.onPrimary);
+
+    final styleBody = theme.textTheme.labelLarge
+        ?.copyWith(fontWeight: FontWeight.w100, fontSize: 12);
 
     Color? getBackgroundColor() {
       if (backgroundGradient == null) {
@@ -41,7 +50,8 @@ class ImageBlock extends StatelessWidget {
           gradient: backgroundGradient,
           borderRadius: BorderRadius.circular(16),
           color: getBackgroundColor(),
-          boxShadow: [ThemeUtils().getDefaultShadow(context)],
+          boxShadow:
+              isShadowEnable ? [ThemeUtils().getDefaultShadow(context)] : null,
         ),
         child: Row(
           children: [
@@ -60,12 +70,35 @@ class ImageBlock extends StatelessWidget {
                       ),
                     ),
                   if (centralImagePath != null)
-                    Center(
-                      child: Image.asset(
-                        centralImagePath!,
-                        height: 85,
-                        width: 85,
-                        fit: BoxFit.contain,
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxHeight: 85,
+                                  maxWidth: 85,
+                                ),
+                                child: Image.asset(
+                                  centralImagePath!,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                            if (bodyText != null) const SizedBox(height: 6),
+                            if (bodyText != null)
+                              Text(
+                                maxLines: 1,
+                                overflow: TextOverflow.fade,
+                                textAlign: TextAlign.center,
+                                bodyText!,
+                                style: styleBody,
+                              )
+                          ],
+                        ),
                       ),
                     ),
                   if (title != null)
@@ -77,7 +110,9 @@ class ImageBlock extends StatelessWidget {
                           color: Colors.black54),
                       child: Text(
                         title!,
-                        style: styleBody,
+                        maxLines: 1,
+                        overflow: TextOverflow.fade,
+                        style: styleTitle,
                       ),
                     ),
                   Material(

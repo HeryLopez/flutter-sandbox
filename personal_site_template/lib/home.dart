@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:personal_site_template/themes/extensions_theme.dart';
 import 'package:personal_site_template/themes/theme_utils.dart';
 import 'package:personal_site_template/utils/dimensions.dart';
 import 'package:personal_site_template/utils/strings.dart';
 import 'package:personal_site_template/utils/uri_utils.dart';
 import 'package:personal_site_template/widgets/about_block.dart';
+import 'package:personal_site_template/widgets/apps_worked_block.dart';
 import 'package:personal_site_template/widgets/contact.dart';
 import 'package:personal_site_template/widgets/image_block.dart';
 import 'package:personal_site_template/widgets/image_versus_block.dart';
@@ -41,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildRow2(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
+    final theme = Theme.of(context);
     return SizedBox(
       height: 470,
       child: Row(
@@ -106,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Expanded(
+                Expanded(
                   flex: 1,
                   child: InfoBlock(
                     title: "Hery Lopez",
@@ -142,14 +145,14 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           Expanded(
-              flex: 2,
+              flex: 5,
               child: AboutBlock(
                 title: Strings.aboutTitle,
                 body: Strings.aboutMe,
               )),
           SizedBox(width: Dimensions.spacing),
           Expanded(
-            flex: 1,
+            flex: 3,
             child: ImageVersusBlock(
               title: "I work with :",
               topColor: Color(0xFF3EDA84),
@@ -162,8 +165,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(width: Dimensions.spacing),
           Expanded(
-            flex: 1,
-            child: MyAppBlock(
+            flex: 3,
+            child: MyAppsBlock(
               title: "My Apps",
             ),
           ),
@@ -175,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildRow4(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
     return SizedBox(
-      height: 240,
+      height: 250,
       child: Row(
         children: [
           ImageBlock(
@@ -206,10 +209,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           const SizedBox(width: Dimensions.spacing),
           const Expanded(
-              flex: 2,
-              child: AboutBlock(
-                title: Strings.aboutTitle,
-                body: Strings.aboutMe,
+              flex: 1,
+              child: AppsWorkedBlock(
+                title: "Some apps I work(ed) on",
               )),
         ],
       ),
@@ -236,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _buildRow4(context),
               const SizedBox(height: Dimensions.spacing),
               Container(
-                height: 240,
+                height: 250,
                 child: Row(
                   children: [
                     ImageBlock(
