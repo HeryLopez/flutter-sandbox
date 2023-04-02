@@ -11,16 +11,14 @@ class AppsWorkedBlock extends StatelessWidget {
 
   final String title;
 
-  _itemBuilder(BuildContext context, int index) {
+  _itemBuilder(BuildContext context, AppsWorkedItem item) {
     return ImageBlock(
-      bodyText: "Courses U",
+      bodyText: item.text,
       isShadowEnable: false,
       backgroundColor: Colors.black12,
-      centralImagePath: "images/app1.png",
+      centralImagePath: item.imagePath,
       onBlockPressed: () {
-        const url =
-            'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr';
-        UriUtils.launchURL(url);
+        UriUtils.launchURL(item.url);
       },
     );
   }
@@ -36,33 +34,32 @@ class AppsWorkedBlock extends StatelessWidget {
     final List<AppsWorkedItem> items = [
       AppsWorkedItem(
         text: "Courses U",
-        imagePath: "images/app1.png",
+        imagePath: "images/logos/coursesu.png",
         url:
             'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr',
       ),
       AppsWorkedItem(
-        text: "Courses U",
-        imagePath: "images/app1.png",
+        text: "Manpower",
+        imagePath: "images/logos/manpower.png",
         url:
-            'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr',
+            'https://play.google.com/store/apps/details?id=com.manpower.interimaires&gl=FR',
       ),
       AppsWorkedItem(
-        text: "Courses U",
-        imagePath: "images/app1.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr',
+        text: "Rubix",
+        imagePath: "images/logos/rubix.png",
+        url:'https://play.google.com/store/apps/details?id=com.iph.orexad&gl=FR',
       ),
       AppsWorkedItem(
-        text: "Courses U",
-        imagePath: "images/app1.png",
+        text: "Assura",
+        imagePath: "images/logos/assura.png",
         url:
-            'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr',
+            'https://play.google.com/store/apps/details?id=com.assura.myassura&hl=fr',
       ),
       AppsWorkedItem(
-        text: "Courses U",
-        imagePath: "images/app1.png",
+        text: "MSH",
+        imagePath: "images/logos/msh.png",
         url:
-            'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr',
+            'https://play.google.com/store/apps/details?id=com.mysmarthealth.siaci&hl=fr',
       ),
     ];
 
@@ -98,7 +95,7 @@ class AppsWorkedBlock extends StatelessWidget {
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(width: 16),
                     itemBuilder: (BuildContext context, int index) =>
-                        _itemBuilder(context, index),
+                        _itemBuilder(context, items[index]),
                   ),
                 ),
               ),

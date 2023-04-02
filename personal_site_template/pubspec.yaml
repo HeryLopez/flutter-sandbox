@@ -78,6 +78,11 @@ flutter:
     - images/flutter.png
     - images/app1.png
     - images/app2.png
+    - images/logos/assura.png
+    - images/logos/coursesu.png
+    - images/logos/manpower.png
+    - images/logos/msh.png
+    - images/logos/rubix.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
