@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:personal_site_template/themes/extensions_theme.dart';
+import 'package:personal_site_template/scrollbehaviors/enable_mouse_scroll_behavior.dart';
 import 'package:personal_site_template/themes/theme_utils.dart';
 import 'package:personal_site_template/utils/dimensions.dart';
 import 'package:personal_site_template/utils/strings.dart';
 import 'package:personal_site_template/utils/uri_utils.dart';
 import 'package:personal_site_template/widgets/about_block.dart';
 import 'package:personal_site_template/widgets/apps_worked_block.dart';
-import 'package:personal_site_template/widgets/contact.dart';
+import 'package:personal_site_template/widgets/contact_block.dart';
 import 'package:personal_site_template/widgets/image_block.dart';
 import 'package:personal_site_template/widgets/image_versus_block.dart';
 import 'package:personal_site_template/widgets/info_block.dart';
 import 'package:personal_site_template/widgets/light_bulb.dart';
 import 'package:personal_site_template/widgets/my_apps_block.dart';
-import 'package:personal_site_template/widgets/photo.dart';
 import 'package:personal_site_template/provider/dark_theme_state.dart';
+import 'package:personal_site_template/widgets/photo_block.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -43,7 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildRow2(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
-    final theme = Theme.of(context);
     return SizedBox(
       height: 470,
       child: Row(
@@ -55,8 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   flex: 10,
-                  child: Contact(
-                    messageText: "Do you have any idea to work together?",
+                  child: ContactBlock(
+                    messageText: "Bring your ideas and let's make it happen",
                     contactButtonText: "Contact me 👋",
                     onContactPressed: () {
                       const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
@@ -102,14 +101,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           const SizedBox(width: Dimensions.spacing),
-          const Expanded(flex: 1, child: Photo()),
+          const Expanded(
+            flex: 1,
+            child: PhotoBlock(),
+          ),
           const SizedBox(width: Dimensions.spacing),
           Expanded(
             flex: 1,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: InfoBlock(
                     title: "Hery Lopez",
@@ -140,12 +142,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildRow3(BuildContext context) {
     return SizedBox(
-      height: 220,
+      height: 240,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           Expanded(
-              flex: 5,
+              flex: 6,
               child: AboutBlock(
                 title: Strings.aboutTitle,
                 body: Strings.aboutMe,
@@ -165,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(width: Dimensions.spacing),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: MyAppsBlock(
               title: "My Apps",
             ),
@@ -218,40 +220,83 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildRow5(BuildContext context) {
+    var darkThemeState = context.watch<DarkThemeState>();
+    final theme = Theme.of(context);
+    final styleTitle = theme.textTheme.titleLarge
+        ?.copyWith(fontWeight: FontWeight.w300, height: 1, fontSize: 14);
+
+    return SizedBox(
+      height: 250,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ImageBlock(
+            centralImagePath: darkThemeState.darkTheme
+                ? "images/github_night.png"
+                : "images/github_light.png",
+            onBlockPressed: () {
+              const url = 'https://github.com/HeryLopez';
+              UriUtils.launchURL(url);
+            },
+          ),
+          const SizedBox(width: Dimensions.spacing),
+          Expanded(
+            flex: 1,
+            child: Container(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  "Hery Lopez since 1990 from Colombia\nlicensed under \"if you want to copy the code, copy it, it's on my Github\"\nv1.0.0",
+                  textAlign: TextAlign.end,
+                  style: styleTitle,
+                )),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    var darkThemeState = context.watch<DarkThemeState>();
+    final ScrollController controller = ScrollController();
+
     return Scaffold(
-      body: Center(
-        child: Container(
-          alignment: Alignment.center,
-          constraints: const BoxConstraints(minWidth: 600, maxWidth: 1400),
-          child: ListView(
-            padding: const EdgeInsets.fromLTRB(100, 0, 100, 100),
+      body: Scrollbar(
+        thumbVisibility: true,
+        controller: controller,
+        child: ScrollConfiguration(
+          behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
+          child: Column(
             children: [
-              _buildRow1(context),
-              const SizedBox(height: Dimensions.spacing),
-              _buildRow2(context),
-              const SizedBox(height: Dimensions.spacing),
-              _buildRow3(context),
-              const SizedBox(height: Dimensions.spacing),
-              _buildRow4(context),
-              const SizedBox(height: Dimensions.spacing),
-              Container(
-                height: 250,
-                child: Row(
-                  children: [
-                    ImageBlock(
-                      centralImagePath: darkThemeState.darkTheme
-                          ? "images/github_night.png"
-                          : "images/github_light.png",
-                      onBlockPressed: () {
-                        const url = 'https://github.com/HeryLopez';
-                        UriUtils.launchURL(url);
-                      },
-                    ),
-                  ],
+              const SizedBox(
+                width: double.infinity,
+              ),
+              Flexible(
+                fit: FlexFit.loose,
+                child: Container(
+                  constraints:
+                      const BoxConstraints(minWidth: 600, maxWidth: 1400),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
+                    controller: controller,
+                    children: [
+                      _buildRow1(context),
+                      const SizedBox(height: Dimensions.spacing),
+                      _buildRow2(context),
+                      const SizedBox(height: Dimensions.spacing),
+                      _buildRow3(context),
+                      const SizedBox(height: Dimensions.spacing),
+                      _buildRow4(context),
+                      const SizedBox(height: Dimensions.spacing),
+                      _buildRow5(context),
+                    ],
+                  ),
                 ),
+              ),
+              const SizedBox(
+                width: double.infinity,
               ),
             ],
           ),

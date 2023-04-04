@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../themes/theme_utils.dart';
 
-class Photo extends StatelessWidget {
-  const Photo({super.key});
+class PhotoBlock extends StatelessWidget {
+  const PhotoBlock({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_site_template/themes/extensions_theme.dart';
 import 'package:personal_site_template/utils/uri_utils.dart';
 
+import '../model/app_item.dart';
 import '../scrollbehaviors/enable_mouse_scroll_behavior.dart';
 import '../themes/theme_utils.dart';
 import 'image_block.dart';
@@ -11,7 +12,7 @@ class AppsWorkedBlock extends StatelessWidget {
 
   final String title;
 
-  _itemBuilder(BuildContext context, AppsWorkedItem item) {
+  _itemBuilder(BuildContext context, AppItem item) {
     return ImageBlock(
       bodyText: item.text,
       isShadowEnable: false,
@@ -31,31 +32,32 @@ class AppsWorkedBlock extends StatelessWidget {
 
     final ScrollController controller = ScrollController();
 
-    final List<AppsWorkedItem> items = [
-      AppsWorkedItem(
+    final List<AppItem> items = [
+      AppItem(
         text: "Courses U",
         imagePath: "images/logos/coursesu.png",
         url:
             'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr',
       ),
-      AppsWorkedItem(
+      AppItem(
         text: "Manpower",
         imagePath: "images/logos/manpower.png",
         url:
             'https://play.google.com/store/apps/details?id=com.manpower.interimaires&gl=FR',
       ),
-      AppsWorkedItem(
+      AppItem(
         text: "Rubix",
         imagePath: "images/logos/rubix.png",
-        url:'https://play.google.com/store/apps/details?id=com.iph.orexad&gl=FR',
+        url:
+            'https://play.google.com/store/apps/details?id=com.iph.orexad&gl=FR',
       ),
-      AppsWorkedItem(
+      AppItem(
         text: "Assura",
         imagePath: "images/logos/assura.png",
         url:
             'https://play.google.com/store/apps/details?id=com.assura.myassura&hl=fr',
       ),
-      AppsWorkedItem(
+      AppItem(
         text: "MSH",
         imagePath: "images/logos/msh.png",
         url:
@@ -86,6 +88,7 @@ class AppsWorkedBlock extends StatelessWidget {
               child: Scrollbar(
                 thumbVisibility: true,
                 child: ScrollConfiguration(
+
                   behavior: EnableMouseScrollBehavior(),
                   child: ListView.separated(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
@@ -105,16 +108,4 @@ class AppsWorkedBlock extends StatelessWidget {
       ),
     );
   }
-}
-
-class AppsWorkedItem {
-  String text;
-  String imagePath;
-  String url;
-
-  AppsWorkedItem({
-    required this.text,
-    required this.imagePath,
-    required this.url,
-  });
 }

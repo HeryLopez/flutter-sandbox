@@ -1,4 +1,4 @@
 class Strings {
   static const String aboutTitle = "About Me";
-  static const String aboutMe = "I am passionate about development and even more about Android.\n\nIf you are interested in diplomas: I have an engineering degree and also a master's degree in management of information systems.";
+  static const String aboutMe = "I am passionate about development, my first lines of code were at university in 2006 and since then I fell in love.\n\nI entered the mobile world, when I found Android. All my attention turned to this technology, that feeling of independence, of being able to create an application and publish it to the world was the key factor.\n\nAs for cross-platform technologies, after spending a few years with React Native, I found this little gem in Flutter, for its speed of development and cross-platform support. Now that is also part of my favorite technologies.";
 }
