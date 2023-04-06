@@ -3,14 +3,12 @@ import 'package:personal_site_template/themes/extensions_theme.dart';
 import 'package:personal_site_template/utils/uri_utils.dart';
 
 import '../model/app_item.dart';
-import '../scrollbehaviors/enable_mouse_scroll_behavior.dart';
+import '../scroll_behaviors/enable_mouse_scroll_behavior.dart';
 import '../themes/theme_utils.dart';
-import 'image_block.dart';
+import '../widgets/image_block.dart';
 
 class MyAppsBlock extends StatelessWidget {
-  const MyAppsBlock({super.key, required this.title});
-
-  final String title;
+  const MyAppsBlock({super.key});
 
   _itemBuilder(BuildContext context, AppItem item) {
     return ImageBlock(
@@ -57,7 +55,7 @@ class MyAppsBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            title,
+            "My Apps",
             maxLines: 1,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.start,

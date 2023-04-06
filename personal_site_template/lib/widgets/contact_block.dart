@@ -7,11 +7,14 @@ class ContactBlock extends StatelessWidget {
       {super.key,
       required this.messageText,
       required this.contactButtonText,
-      required this.onContactPressed});
+      required this.onContactPressed,
+        this.maxLines
+      });
 
   final String messageText;
   final String contactButtonText;
   final VoidCallback onContactPressed;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class ContactBlock extends StatelessWidget {
           Text(
             messageText,
             overflow: TextOverflow.fade,
-            maxLines: 2,
+            maxLines: maxLines,
             style: styleMainText,
           ),
           const SizedBox(height: 16),

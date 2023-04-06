@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_template/themes/extensions_theme.dart';
 
-import '../scrollbehaviors/enable_mouse_scroll_behavior.dart';
+import '../scroll_behaviors/enable_mouse_scroll_behavior.dart';
 import '../themes/theme_utils.dart';
 
 class AboutBlock extends StatelessWidget {
