@@ -63,6 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _infoBlockQuality1() {
     return const InfoBlock(
       title: "10+",
+      textTitleColor: Colors.white,
+      textBodyColor: Colors.white,
       body: "Years Dev\nExperience",
       backgroundColor: Colors.teal,
     );
@@ -81,6 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _infoBlockQuality3() {
     return const InfoBlock(
       title: "10+",
+      textTitleColor: Colors.white,
+      textBodyColor: Colors.white,
       body: "different projects (Apps)",
       backgroundColor: Color(0xFFFF6D7A),
     );
@@ -163,6 +167,132 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  _itemBigVersionBuilder(BuildContext context, int index, bool isDarkTheme) {
+    switch (index) {
+      case 0:
+        return _lightBulbBlock(context);
+      case 1:
+        return SizedBox(
+          height: 470,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 10,
+                      child: _contactBlock(maxLines: 2),
+                    ),
+                    const SizedBox(height: Dimensions.spacing),
+                    Expanded(
+                      flex: 6,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: _infoBlockQuality1(),
+                          ),
+                          const SizedBox(width: Dimensions.spacing),
+                          Expanded(
+                            child: _infoBlockQuality2(),
+                          ),
+                          const SizedBox(width: Dimensions.spacing),
+                          Expanded(
+                            flex: 1,
+                            child: _infoBlockQuality3(),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              const Expanded(
+                flex: 1,
+                child: PhotoBlock(),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: _infoBlockName(),
+                    ),
+                    const SizedBox(height: Dimensions.spacing),
+                    Expanded(
+                      flex: 2,
+                      child: _imageBlockBasedIn(isDarkTheme),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      case 2:
+        return SizedBox(
+          height: 240,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Expanded(
+                  flex: 6,
+                  child: AboutBlock(
+                    title: Strings.aboutTitle,
+                    body: Strings.aboutMe,
+                  )),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                flex: 3,
+                child: _imageVersusBlock(),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              const Expanded(
+                flex: 4,
+                child: MyAppsBlock(),
+              ),
+            ],
+          ),
+        );
+      case 3:
+        return SizedBox(
+          height: 250,
+          child: Row(
+            children: [
+              _imageBlockSocialNetwork1(isDarkTheme),
+              const SizedBox(width: Dimensions.spacing),
+              _imageBlockSocialNetwork2(isDarkTheme),
+              const SizedBox(width: Dimensions.spacing),
+              const Expanded(
+                flex: 1,
+                child: AppsWorkedBlock(),
+              ),
+            ],
+          ),
+        );
+      case 4:
+        return SizedBox(
+          height: 250,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _imageBlockSocialNetwork3(isDarkTheme),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                flex: 1,
+                child: _footerBlock(context),
+              )
+            ],
+          ),
+        );
+    }
+  }
+
   Widget _buildBigVersion(BuildContext context) {
     var darkThemeState = context.watch<DarkThemeState>();
     final ScrollController controller = ScrollController();
@@ -171,157 +301,141 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: controller,
       child: ScrollConfiguration(
         behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
-        child: ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
-          controller: controller,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 1400),
-                    child: Column(
-                      children: [
-                        _lightBulbBlock(context),
-                        const SizedBox(height: Dimensions.spacing),
-                        SizedBox(
-                          height: 470,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 10,
-                                      child: _contactBlock(maxLines: 2),
-                                    ),
-                                    const SizedBox(height: Dimensions.spacing),
-                                    Expanded(
-                                      flex: 6,
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: _infoBlockQuality1(),
-                                          ),
-                                          const SizedBox(
-                                              width: Dimensions.spacing),
-                                          Expanded(
-                                            child: _infoBlockQuality2(),
-                                          ),
-                                          const SizedBox(
-                                              width: Dimensions.spacing),
-                                          Expanded(
-                                            flex: 1,
-                                            child: _infoBlockQuality3(),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: Dimensions.spacing),
-                              const Expanded(
-                                flex: 1,
-                                child: PhotoBlock(),
-                              ),
-                              const SizedBox(width: Dimensions.spacing),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: _infoBlockName(),
-                                    ),
-                                    const SizedBox(height: Dimensions.spacing),
-                                    Expanded(
-                                      flex: 2,
-                                      child: _imageBlockBasedIn(
-                                          darkThemeState.darkTheme),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: Dimensions.spacing),
-                        SizedBox(
-                          height: 240,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              const Expanded(
-                                  flex: 6,
-                                  child: AboutBlock(
-                                    title: Strings.aboutTitle,
-                                    body: Strings.aboutMe,
-                                  )),
-                              const SizedBox(width: Dimensions.spacing),
-                              Expanded(
-                                flex: 3,
-                                child: _imageVersusBlock(),
-                              ),
-                              const SizedBox(width: Dimensions.spacing),
-                              const Expanded(
-                                flex: 4,
-                                child: MyAppsBlock(),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: Dimensions.spacing),
-                        SizedBox(
-                          height: 250,
-                          child: Row(
-                            children: [
-                              _imageBlockSocialNetwork1(
-                                  darkThemeState.darkTheme),
-                              const SizedBox(width: Dimensions.spacing),
-                              _imageBlockSocialNetwork2(
-                                  darkThemeState.darkTheme),
-                              const SizedBox(width: Dimensions.spacing),
-                              const Expanded(
-                                flex: 1,
-                                child: AppsWorkedBlock(),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: Dimensions.spacing),
-                        SizedBox(
-                          height: 250,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _imageBlockSocialNetwork3(
-                                  darkThemeState.darkTheme),
-                              const SizedBox(width: Dimensions.spacing),
-                              Expanded(
-                                flex: 1,
-                                child: _footerBlock(context),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+        child: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 1400),
+            child: ListView.separated(
+              padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
+              controller: controller,
+              itemCount: 5,
+              scrollDirection: Axis.vertical,
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(height: Dimensions.spacing),
+              itemBuilder: (BuildContext context, int index) =>
+                  _itemBigVersionBuilder(
+                      context, index, darkThemeState.darkTheme),
             ),
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  _itemMiddleVersionBuilder(BuildContext context, int index, bool isDarkTheme) {
+    switch (index) {
+      case 0:
+        return _lightBulbBlock(context);
+      case 1:
+        return SizedBox(
+          height: 470,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Expanded(
+                flex: 1,
+                child: PhotoBlock(),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: _infoBlockName(),
+                    ),
+                    const SizedBox(height: Dimensions.spacing),
+                    Expanded(
+                      flex: 2,
+                      child: _imageBlockBasedIn(isDarkTheme),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      case 2:
+        return const SizedBox(
+          height: 210,
+          child: AboutBlock(
+            title: Strings.aboutTitle,
+            body: Strings.aboutMe,
+          ),
+        );
+      case 3:
+        return SizedBox(
+          height: 470,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 10,
+                child: _contactBlock(maxLines: 2),
+              ),
+              const SizedBox(height: Dimensions.spacing),
+              Expanded(
+                flex: 6,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _infoBlockQuality1(),
+                    ),
+                    const SizedBox(width: Dimensions.spacing),
+                    Expanded(
+                      child: _infoBlockQuality2(),
+                    ),
+                    const SizedBox(width: Dimensions.spacing),
+                    Expanded(
+                      flex: 1,
+                      child: _infoBlockQuality3(),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      case 4:
+        return SizedBox(
+          height: 220,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Expanded(flex: 2, child: MyAppsBlock()),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(flex: 1, child: _imageVersusBlock()),
+            ],
+          ),
+        );
+      case 5:
+        return const SizedBox(
+          height: 220,
+          child: AppsWorkedBlock(),
+        );
+      case 6:
+        return SizedBox(
+          height: 200,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: _imageBlockSocialNetwork1(isDarkTheme),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                child: _imageBlockSocialNetwork2(isDarkTheme),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                child: _imageBlockSocialNetwork3(isDarkTheme),
+              ),
+            ],
+          ),
+        );
+      case 7:
+        return _footerBlock(context);
+    }
   }
 
   Widget _buildMiddleVersion(BuildContext context) {
@@ -332,140 +446,107 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: controller,
       child: ScrollConfiguration(
         behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
-        child: ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
+        child: ListView.separated(
           padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
           controller: controller,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Column(children: [
-                    _lightBulbBlock(context),
-                    const SizedBox(height: Dimensions.spacing),
-                    SizedBox(
-                      height: 470,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const Expanded(
-                            flex: 1,
-                            child: PhotoBlock(),
-                          ),
-                          const SizedBox(width: Dimensions.spacing),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: _infoBlockName(),
-                                ),
-                                const SizedBox(height: Dimensions.spacing),
-                                Expanded(
-                                  flex: 2,
-                                  child: _imageBlockBasedIn(
-                                      darkThemeState.darkTheme),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: Dimensions.spacing),
-                    const SizedBox(
-                      height: 210,
-                      child: AboutBlock(
-                        title: Strings.aboutTitle,
-                        body: Strings.aboutMe,
-                      ),
-                    ),
-                    const SizedBox(height: Dimensions.spacing),
-                    SizedBox(
-                      height: 470,
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 10,
-                            child: _contactBlock(maxLines: 2),
-                          ),
-                          const SizedBox(height: Dimensions.spacing),
-                          Expanded(
-                            flex: 6,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: _infoBlockQuality1(),
-                                ),
-                                const SizedBox(width: Dimensions.spacing),
-                                Expanded(
-                                  child: _infoBlockQuality2(),
-                                ),
-                                const SizedBox(width: Dimensions.spacing),
-                                Expanded(
-                                  flex: 1,
-                                  child: _infoBlockQuality3(),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: Dimensions.spacing),
-                    SizedBox(
-                      height: 220,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const Expanded(flex: 2, child: MyAppsBlock()),
-                          const SizedBox(width: Dimensions.spacing),
-                          Expanded(flex: 1, child: _imageVersusBlock()),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: Dimensions.spacing),
-                    const SizedBox(
-                      height: 220,
-                      child: AppsWorkedBlock(),
-                    ),
-                    const SizedBox(height: Dimensions.spacing),
-                    SizedBox(
-                      height: 200,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: _imageBlockSocialNetwork1(
-                                darkThemeState.darkTheme),
-                          ),
-                          const SizedBox(width: Dimensions.spacing),
-                          Expanded(
-                            child: _imageBlockSocialNetwork2(
-                                darkThemeState.darkTheme),
-                          ),
-                          const SizedBox(width: Dimensions.spacing),
-                          Expanded(
-                            child: _imageBlockSocialNetwork3(
-                                darkThemeState.darkTheme),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: Dimensions.spacing),
-                    _footerBlock(context),
-                  ]),
-                ),
-              ],
-            ),
-          ],
+          itemCount: 8,
+          scrollDirection: Axis.vertical,
+          separatorBuilder: (BuildContext context, int index) =>
+              const SizedBox(height: Dimensions.spacing),
+          itemBuilder: (BuildContext context, int index) =>
+              _itemMiddleVersionBuilder(
+                  context, index, darkThemeState.darkTheme),
         ),
       ),
     );
+  }
+
+  _itemSmallVersionBuilder(BuildContext context, int index, bool isDarkTheme) {
+    switch (index) {
+      case 0:
+        return _lightBulbBlock(context);
+      case 1:
+        return SizedBox(height: 110, child: _infoBlockName());
+      case 2:
+        return const PhotoBlock();
+      case 3:
+        return _imageBlockBasedIn(isDarkTheme);
+      case 4:
+        return const SizedBox(
+          height: 270,
+          child: AboutBlock(
+            title: Strings.aboutTitle,
+            body: Strings.aboutMe,
+          ),
+        );
+      case 5:
+        return SizedBox(
+          height: 120,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: _infoBlockQuality1(),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                child: _infoBlockQuality2(),
+              ),
+            ],
+          ),
+        );
+      case 6:
+        return SizedBox(
+          height: 110,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 1,
+                child: _infoBlockQuality3(),
+              ),
+            ],
+          ),
+        );
+      case 7:
+        return _contactBlock();
+      case 8:
+        return SizedBox(
+          height: 200,
+          child: _imageVersusBlock(),
+        );
+      case 9:
+        return const SizedBox(
+          height: 220,
+          child: MyAppsBlock(),
+        );
+      case 10:
+        return const SizedBox(
+          height: 220,
+          child: AppsWorkedBlock(),
+        );
+      case 11:
+        return SizedBox(
+          height: 200,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: _imageBlockSocialNetwork1(isDarkTheme),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              Expanded(
+                child: _imageBlockSocialNetwork2(isDarkTheme),
+              ),
+            ],
+          ),
+        );
+      case 12:
+        return SizedBox(
+          height: 200,
+          child: _footerBlock(context),
+        );
+    }
   }
 
   Widget _buildSmallVersion(BuildContext context) {
@@ -476,131 +557,16 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: controller,
       child: ScrollConfiguration(
         behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
-        child: ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
+        child: ListView.separated(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
           controller: controller,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _lightBulbBlock(context),
-                      const SizedBox(height: Dimensions.spacing),
-                      SizedBox(
-                        height: 110,
-                        child: _infoBlockName(),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      const PhotoBlock(),
-                      const SizedBox(height: Dimensions.spacing),
-                      _imageBlockBasedIn(darkThemeState.darkTheme),
-                      const SizedBox(height: Dimensions.spacing),
-                      const SizedBox(
-                        height: 270,
-                        child: AboutBlock(
-                          title: Strings.aboutTitle,
-                          body: Strings.aboutMe,
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      SizedBox(
-                        height: 120,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              child: _infoBlockQuality1(),
-                            ),
-                            const SizedBox(width: Dimensions.spacing),
-                            Expanded(
-                              child: _infoBlockQuality2(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      SizedBox(
-                        height: 110,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: _infoBlockQuality3(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      _contactBlock(),
-                      const SizedBox(height: Dimensions.spacing),
-                      SizedBox(
-                        height: 200,
-                        child: _imageVersusBlock(),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      const SizedBox(
-                        height: 220,
-                        child: MyAppsBlock(),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      const SizedBox(
-                        height: 220,
-                        child: AppsWorkedBlock(),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      SizedBox(
-                        height: 200,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              child: _imageBlockSocialNetwork1(
-                                  darkThemeState.darkTheme),
-                            ),
-                            const SizedBox(width: Dimensions.spacing),
-                            Expanded(
-                              child: _imageBlockSocialNetwork2(
-                                  darkThemeState.darkTheme),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      SizedBox(
-                        height: 200,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: _imageBlockSocialNetwork3(
-                                  darkThemeState.darkTheme),
-                            ),
-                            const SizedBox(width: Dimensions.spacing),
-                            const Expanded(flex: 1, child: SizedBox()),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.spacing),
-                      SizedBox(
-                        height: 200,
-                        child: Expanded(
-                          flex: 1,
-                          child: _footerBlock(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
+          itemCount: 12,
+          scrollDirection: Axis.vertical,
+          separatorBuilder: (BuildContext context, int index) =>
+              const SizedBox(height: Dimensions.spacing),
+          itemBuilder: (BuildContext context, int index) =>
+              _itemSmallVersionBuilder(
+                  context, index, darkThemeState.darkTheme),
         ),
       ),
     );
@@ -613,7 +579,7 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth >= 1150) {
             return _buildBigVersion(context);
-          } else if (constraints.maxWidth >= 650 &&
+          } else if (constraints.maxWidth >= 600 &&
               constraints.maxWidth < 1150) {
             return _buildMiddleVersion(context);
           } else {
