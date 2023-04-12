@@ -30,6 +30,7 @@ class AboutBlock extends StatelessWidget {
           color: theme.colorScheme.defaultBlockBackground),
       child: Scrollbar(
         thumbVisibility: true,
+        controller: controller,
         child: ScrollConfiguration(
           behavior: EnableMouseScrollBehavior(),
           child: ListView(

@@ -553,7 +553,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView.separated(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
           controller: controller,
-          itemCount: 12,
+          itemCount: 13,
           scrollDirection: Axis.vertical,
           separatorBuilder: (BuildContext context, int index) =>
               const SizedBox(height: Dimensions.spacing),

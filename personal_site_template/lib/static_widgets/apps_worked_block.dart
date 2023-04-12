@@ -55,6 +55,7 @@ class AppsWorkedBlock extends StatelessWidget {
           Flexible(
             child: Scrollbar(
               thumbVisibility: true,
+              controller: controller,
               child: ScrollConfiguration(
                 behavior: EnableMouseScrollBehavior(),
                 child: ListView.separated(

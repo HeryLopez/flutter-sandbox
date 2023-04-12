@@ -54,6 +54,7 @@ class MyAppsBlock extends StatelessWidget {
           Flexible(
             child: Scrollbar(
               thumbVisibility: true,
+              controller: controller,
               child: ScrollConfiguration(
                 behavior: EnableMouseScrollBehavior(),
                 child: Center(
