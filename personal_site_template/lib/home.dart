@@ -537,6 +537,21 @@ class _MyHomePageState extends State<MyHomePage> {
       case 12:
         return SizedBox(
           height: 200,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 1,
+                child: _imageBlockSocialNetwork3(isDarkTheme),
+              ),
+              const SizedBox(width: Dimensions.spacing),
+              const Expanded(flex: 1, child: SizedBox()),
+            ],
+          ),
+        );
+      case 13:
+        return SizedBox(
+          height: 200,
           child: _footerBlock(context),
         );
     }
@@ -553,7 +568,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView.separated(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
           controller: controller,
-          itemCount: 13,
+          itemCount: 14,
           scrollDirection: Axis.vertical,
           separatorBuilder: (BuildContext context, int index) =>
               const SizedBox(height: Dimensions.spacing),
