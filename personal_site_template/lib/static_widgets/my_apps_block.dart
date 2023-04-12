@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_template/themes/extensions_theme.dart';
+import 'package:personal_site_template/utils/apps_data_utils.dart';
 import 'package:personal_site_template/utils/uri_utils.dart';
 
 import '../model/app_item.dart';
 import '../scroll_behaviors/enable_mouse_scroll_behavior.dart';
 import '../themes/theme_utils.dart';
+import '../utils/strings.dart';
 import '../widgets/image_block.dart';
 
 class MyAppsBlock extends StatelessWidget {
@@ -30,20 +32,7 @@ class MyAppsBlock extends StatelessWidget {
 
     final ScrollController controller = ScrollController();
 
-    final List<AppItem> items = [
-      AppItem(
-        text: "Mii Collector",
-        imagePath: "images/app1.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.app.herydevelopments.miicollector&gl=US',
-      ),
-      AppItem(
-        text: "Money Control",
-        imagePath: "images/app2.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.app.herydevelopments.moneycontrol&gl=IN',
-      ),
-    ];
+    final List<AppItem> items = AppsDataUtils.myAppsList();
 
     return Container(
       padding: const EdgeInsets.all(26),
@@ -55,7 +44,7 @@ class MyAppsBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "My Apps",
+            Strings.myAppsBlockTitle,
             maxLines: 1,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.start,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:personal_site_template/themes/extensions_theme.dart';
+import 'package:personal_site_template/utils/apps_data_utils.dart';
 import 'package:personal_site_template/utils/uri_utils.dart';
 
 import '../model/app_item.dart';
 import '../scroll_behaviors/enable_mouse_scroll_behavior.dart';
 import '../themes/theme_utils.dart';
+import '../utils/strings.dart';
 import '../widgets/image_block.dart';
 
 class AppsWorkedBlock extends StatelessWidget {
@@ -30,38 +32,7 @@ class AppsWorkedBlock extends StatelessWidget {
 
     final ScrollController controller = ScrollController();
 
-    final List<AppItem> items = [
-      AppItem(
-        text: "Courses U",
-        imagePath: "images/logos/coursesu.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.coursesu.app&hl=fr',
-      ),
-      AppItem(
-        text: "Manpower",
-        imagePath: "images/logos/manpower.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.manpower.interimaires&gl=FR',
-      ),
-      AppItem(
-        text: "Rubix",
-        imagePath: "images/logos/rubix.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.iph.orexad&gl=FR',
-      ),
-      AppItem(
-        text: "Assura",
-        imagePath: "images/logos/assura.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.assura.myassura&hl=fr',
-      ),
-      AppItem(
-        text: "MSH",
-        imagePath: "images/logos/msh.png",
-        url:
-            'https://play.google.com/store/apps/details?id=com.mysmarthealth.siaci&hl=fr',
-      ),
-    ];
+    final List<AppItem> items = AppsDataUtils.workedAppsList();
 
     return Container(
       padding: const EdgeInsets.all(26),
@@ -74,7 +45,7 @@ class AppsWorkedBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Some apps I work(ed) on",
+            Strings.workedAppsBlockTitle,
             maxLines: 1,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.start,

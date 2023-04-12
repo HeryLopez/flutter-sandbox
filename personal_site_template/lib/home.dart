@@ -44,60 +44,57 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _contactBlock({int? maxLines}) {
     return ContactBlock(
       maxLines: maxLines,
-      messageText: "Bring your ideas and let's make it happen",
-      contactButtonText: "Contact me 👋",
+      messageText: Strings.contactBlockMessage,
+      contactButtonText: Strings.contactBlockContactText,
       onContactPressed: () {
-        const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
-        UriUtils.launchURL(url);
+        UriUtils.launchURL(Strings.contactBlockUrl);
       },
     );
   }
 
   Widget _infoBlockName() {
     return const InfoBlock(
-      title: "Hery Lopez",
-      body: "Mobile App Developer",
-    );
+        title: Strings.nameBlockTitle, body: Strings.nameBlockBody);
   }
 
   Widget _infoBlockQuality1() {
     return const InfoBlock(
-      title: "10+",
+      title: Strings.quality1BlockTitle,
       textTitleColor: Colors.white,
       textBodyColor: Colors.white,
-      body: "Years Dev\nExperience",
+      body: Strings.quality1BlockBody,
       backgroundColor: Colors.teal,
     );
   }
 
   Widget _infoBlockQuality2() {
     return const InfoBlock(
-      title: "5+",
+      title: Strings.quality2BlockTitle,
       textTitleColor: Colors.black,
       textBodyColor: Colors.black,
-      body: "Years Mobile\nDev Experience",
+      body: Strings.quality3BlockBody,
       backgroundColor: Color(0xFFFFC03D),
     );
   }
 
   Widget _infoBlockQuality3() {
     return const InfoBlock(
-      title: "10+",
+      title: Strings.quality3BlockTitle,
       textTitleColor: Colors.white,
       textBodyColor: Colors.white,
-      body: "different projects (Apps)",
+      body: Strings.quality3BlockBody,
       backgroundColor: Color(0xFFFF6D7A),
     );
   }
 
   Widget _imageBlockBasedIn(bool isDarkTheme) {
     return ImageBlock(
-      title: "Based in :",
-      backgroundImagePath:
-          isDarkTheme ? "images/location_night.png" : "images/location_day.png",
+      title: Strings.baseInBlockTitle,
+      backgroundImagePath: isDarkTheme
+          ? Strings.baseInBlockDarkImage
+          : Strings.baseInBlockLightImage,
       onBlockPressed: () {
-        const url = "https://goo.gl/maps/qAEqG55SGJRhJLJr9";
-        UriUtils.launchURL(url);
+        UriUtils.launchURL(Strings.baseInBlockUrl);
       },
     );
   }
@@ -105,14 +102,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _imageBlockSocialNetwork1(bool isDarkTheme) {
     return ImageBlock(
       centralImagePath: isDarkTheme
-          ? "images/instagram_night.png"
-          : "images/instagram_light.png",
+          ? Strings.socialNetwork1BlockDarkImage
+          : Strings.socialNetwork1BlockLightImage,
       backgroundGradient:
           isDarkTheme ? ThemeUtils().getInstagramGradient() : null,
       backgroundColor: null,
       onBlockPressed: () {
-        const url = 'https://www.instagram.com/walkingthemilkyway/';
-        UriUtils.launchURL(url);
+        UriUtils.launchURL(Strings.socialNetwork1BlockUrl);
       },
     );
   }
@@ -120,35 +116,35 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _imageBlockSocialNetwork2(bool isDarkTheme) {
     return ImageBlock(
       backgroundColor: isDarkTheme ? const Color(0xFF0A66C2) : Colors.white,
-      centralImagePath:
-          isDarkTheme ? "images/linkedin_night.png" : "images/linkedin_day.png",
+      centralImagePath: isDarkTheme
+          ? Strings.socialNetwork2BlockDarkImage
+          : Strings.socialNetwork2BlockLightImage,
       onBlockPressed: () {
-        const url = 'https:www.linkedin.com/in/hery-lopez-r';
-        UriUtils.launchURL(url);
+        UriUtils.launchURL(Strings.socialNetwork2BlockUrl);
       },
     );
   }
 
   Widget _imageBlockSocialNetwork3(bool isDarkTheme) {
     return ImageBlock(
-      centralImagePath:
-          isDarkTheme ? "images/github_night.png" : "images/github_light.png",
+      centralImagePath: isDarkTheme
+          ? Strings.socialNetwork3BlockDarkImage
+          : Strings.socialNetwork3BlockLightImage,
       onBlockPressed: () {
-        const url = 'https://github.com/HeryLopez';
-        UriUtils.launchURL(url);
+        UriUtils.launchURL(Strings.socialNetwork3BlockUrl);
       },
     );
   }
 
   Widget _imageVersusBlock() {
     return const ImageVersusBlock(
-      title: "I work with :",
+      title: Strings.versusBlockTitle,
       topColor: Color(0xFF3EDA84),
       bottomColor: Color(0xFF62C8F9),
-      topText: "Android",
-      bottomText: "Flutter",
-      topImagePath: "images/android.png",
-      bottomImagePath: "images/flutter.png",
+      topText: Strings.versusBlockTopText,
+      bottomText: Strings.versusBlockBottomText,
+      topImagePath: Strings.versusBlockTopImage,
+      bottomImagePath: Strings.versusBlockBottomImage,
     );
   }
 
@@ -160,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       alignment: Alignment.bottomRight,
       child: Text(
-        "Hery Lopez since 1990 from Colombia\nlicensed under \"if you want to copy the code, copy it, it's on my Github\"\nv1.0.0",
+        Strings.footerText,
         textAlign: TextAlign.end,
         style: styleTitle,
       ),
@@ -293,29 +289,27 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Widget _buildBigVersion(BuildContext context) {
-    var darkThemeState = context.watch<DarkThemeState>();
+  Widget _buildBigVersion(BuildContext context, bool isDarkTheme) {
     final ScrollController controller = ScrollController();
+    final screenWidth = MediaQuery.of(context).size.width;
+    double listWidth = 50.0;
+    if (screenWidth > 1400) {
+      listWidth = ((screenWidth - 1400) / 2);
+    }
     return Scrollbar(
       thumbVisibility: true,
       controller: controller,
       child: ScrollConfiguration(
         behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 1400),
-            child: ListView.separated(
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
-              controller: controller,
-              itemCount: 5,
-              scrollDirection: Axis.vertical,
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: Dimensions.spacing),
-              itemBuilder: (BuildContext context, int index) =>
-                  _itemBigVersionBuilder(
-                      context, index, darkThemeState.darkTheme),
-            ),
-          ),
+        child: ListView.separated(
+          padding: EdgeInsets.fromLTRB(listWidth, 0, listWidth, 100),
+          controller: controller,
+          itemCount: 5,
+          scrollDirection: Axis.vertical,
+          separatorBuilder: (BuildContext context, int index) =>
+              const SizedBox(height: Dimensions.spacing),
+          itemBuilder: (BuildContext context, int index) =>
+              _itemBigVersionBuilder(context, index, isDarkTheme),
         ),
       ),
     );
@@ -438,9 +432,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Widget _buildMiddleVersion(BuildContext context) {
+  Widget _buildMiddleVersion(BuildContext context, bool isDarkTheme) {
     final ScrollController controller = ScrollController();
-    var darkThemeState = context.watch<DarkThemeState>();
+
     return Scrollbar(
       thumbVisibility: true,
       controller: controller,
@@ -454,8 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
           separatorBuilder: (BuildContext context, int index) =>
               const SizedBox(height: Dimensions.spacing),
           itemBuilder: (BuildContext context, int index) =>
-              _itemMiddleVersionBuilder(
-                  context, index, darkThemeState.darkTheme),
+              _itemMiddleVersionBuilder(context, index, isDarkTheme),
         ),
       ),
     );
@@ -549,9 +542,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Widget _buildSmallVersion(BuildContext context) {
+  Widget _buildSmallVersion(BuildContext context, bool isDarkTheme) {
     final ScrollController controller = ScrollController();
-    var darkThemeState = context.watch<DarkThemeState>();
+
     return Scrollbar(
       thumbVisibility: true,
       controller: controller,
@@ -565,8 +558,7 @@ class _MyHomePageState extends State<MyHomePage> {
           separatorBuilder: (BuildContext context, int index) =>
               const SizedBox(height: Dimensions.spacing),
           itemBuilder: (BuildContext context, int index) =>
-              _itemSmallVersionBuilder(
-                  context, index, darkThemeState.darkTheme),
+              _itemSmallVersionBuilder(context, index, isDarkTheme),
         ),
       ),
     );
@@ -574,16 +566,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var darkThemeState = context.watch<DarkThemeState>();
+
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth >= 1150) {
-            return _buildBigVersion(context);
+            return _buildBigVersion(context, darkThemeState.darkTheme);
           } else if (constraints.maxWidth >= 600 &&
               constraints.maxWidth < 1150) {
-            return _buildMiddleVersion(context);
+            return _buildMiddleVersion(context, darkThemeState.darkTheme);
           } else {
-            return _buildSmallVersion(context);
+            return _buildSmallVersion(context, darkThemeState.darkTheme);
           }
         },
       ),
