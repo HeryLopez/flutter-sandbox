@@ -40,6 +40,7 @@ dependencies:
   provider: ^6.0.0
   flutter_glow: ^0.2.0
   google_fonts: ^4.0.3
+  morphable_shape: ^1.6.5
 
 dev_dependencies:
   flutter_test:

@@ -14,6 +14,7 @@ import 'package:personal_site_template/widgets/light_bulb.dart';
 import 'package:personal_site_template/static_widgets/my_apps_block.dart';
 import 'package:personal_site_template/provider/dark_theme_state.dart';
 import 'package:personal_site_template/widgets/photo_block.dart';
+import 'package:personal_site_template/widgets/rocket_block.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -163,12 +164,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  _itemBigVersionBuilder(BuildContext context, int index, bool isDarkTheme) {
+  _itemBigVersionBuilder(
+      BuildContext context, int index, bool isDarkTheme, double contentMargin) {
     switch (index) {
       case 0:
-        return _lightBulbBlock(context);
+        return Container(
+            padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
+            child: _lightBulbBlock(context));
       case 1:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 470,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -231,7 +236,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 2:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 240,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -256,7 +262,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 3:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 250,
           child: Row(
             children: [
@@ -272,55 +279,61 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 4:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 250,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _imageBlockSocialNetwork3(isDarkTheme),
               const SizedBox(width: Dimensions.spacing),
-              Expanded(
-                flex: 1,
-                child: _footerBlock(context),
-              )
             ],
           ),
         );
+      case 5:
+        final screenWidth = MediaQuery.of(context).size.width;
+        final rocketMargin = screenWidth / 2;
+        return RocketBlock(
+            contentMargin: contentMargin, rocketMargin: rocketMargin - 50);
     }
   }
 
   Widget _buildBigVersion(BuildContext context, bool isDarkTheme) {
     final ScrollController controller = ScrollController();
     final screenWidth = MediaQuery.of(context).size.width;
-    double listWidth = 50.0;
+    double listMargin = 50.0;
     if (screenWidth > 1400) {
-      listWidth = ((screenWidth - 1400) / 2);
+      listMargin = ((screenWidth - 1400) / 2);
     }
+
     return Scrollbar(
       thumbVisibility: true,
       controller: controller,
       child: ScrollConfiguration(
         behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
         child: ListView.separated(
-          padding: EdgeInsets.fromLTRB(listWidth, 0, listWidth, 100),
-          controller: controller,
-          itemCount: 5,
-          scrollDirection: Axis.vertical,
-          separatorBuilder: (BuildContext context, int index) =>
-              const SizedBox(height: Dimensions.spacing),
-          itemBuilder: (BuildContext context, int index) =>
-              _itemBigVersionBuilder(context, index, isDarkTheme),
-        ),
+            controller: controller,
+            itemCount: 6,
+            scrollDirection: Axis.vertical,
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(height: Dimensions.spacing),
+            itemBuilder: (BuildContext context, int index) =>
+                _itemBigVersionBuilder(
+                    context, index, isDarkTheme, listMargin)),
       ),
     );
   }
 
-  _itemMiddleVersionBuilder(BuildContext context, int index, bool isDarkTheme) {
+  _itemMiddleVersionBuilder(
+      BuildContext context, int index, bool isDarkTheme, double contentMargin) {
     switch (index) {
       case 0:
-        return _lightBulbBlock(context);
+        return Container(
+            padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
+            child: _lightBulbBlock(context));
       case 1:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 470,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -351,15 +364,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 2:
-        return const SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 210,
-          child: AboutBlock(
+          child: const AboutBlock(
             title: Strings.aboutTitle,
             body: Strings.aboutMe,
           ),
         );
       case 3:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 470,
           child: Column(
             children: <Widget>[
@@ -391,7 +406,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 4:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 220,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -403,12 +419,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 5:
-        return const SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 220,
           child: AppsWorkedBlock(),
         );
       case 6:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 200,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -428,7 +446,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 7:
-        return _footerBlock(context);
+        return RocketBlock(
+          contentMargin: contentMargin,
+          rocketMargin: contentMargin,
+        );
     }
   }
 
@@ -441,39 +462,50 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ScrollConfiguration(
         behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
         child: ListView.separated(
-          padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
           controller: controller,
           itemCount: 8,
           scrollDirection: Axis.vertical,
           separatorBuilder: (BuildContext context, int index) =>
               const SizedBox(height: Dimensions.spacing),
           itemBuilder: (BuildContext context, int index) =>
-              _itemMiddleVersionBuilder(context, index, isDarkTheme),
+              _itemMiddleVersionBuilder(context, index, isDarkTheme, 50),
         ),
       ),
     );
   }
 
-  _itemSmallVersionBuilder(BuildContext context, int index, bool isDarkTheme) {
+  _itemSmallVersionBuilder(
+      BuildContext context, int index, bool isDarkTheme, double contentMargin) {
     switch (index) {
       case 0:
-        return _lightBulbBlock(context);
+        return Container(
+            padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
+            child: _lightBulbBlock(context));
       case 1:
-        return SizedBox(height: 110, child: _infoBlockName());
+        return Container(
+            padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
+            height: 110,
+            child: _infoBlockName());
       case 2:
-        return const PhotoBlock();
+        return Container(
+            padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
+            child: const PhotoBlock());
       case 3:
-        return _imageBlockBasedIn(isDarkTheme);
+        return Container(
+            padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
+            child: _imageBlockBasedIn(isDarkTheme));
       case 4:
-        return const SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 270,
-          child: AboutBlock(
+          child: const AboutBlock(
             title: Strings.aboutTitle,
             body: Strings.aboutMe,
           ),
         );
       case 5:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 120,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -489,7 +521,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 6:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 110,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -502,24 +535,30 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 7:
-        return _contactBlock();
+        return Container(
+            padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
+            child: _contactBlock());
       case 8:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 200,
           child: _imageVersusBlock(),
         );
       case 9:
-        return const SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 220,
-          child: MyAppsBlock(),
+          child: const MyAppsBlock(),
         );
       case 10:
-        return const SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 220,
-          child: AppsWorkedBlock(),
+          child: const AppsWorkedBlock(),
         );
       case 11:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 200,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -535,7 +574,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 12:
-        return SizedBox(
+        return Container(
+          padding: EdgeInsets.fromLTRB(contentMargin, 0, contentMargin, 0),
           height: 200,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -550,9 +590,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case 13:
-        return SizedBox(
-          height: 200,
-          child: _footerBlock(context),
+        return RocketBlock(
+          contentMargin: contentMargin,
+          rocketMargin: contentMargin,
         );
     }
   }
@@ -566,14 +606,13 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ScrollConfiguration(
         behavior: EnableMouseScrollBehavior().copyWith(scrollbars: false),
         child: ListView.separated(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
           controller: controller,
           itemCount: 14,
           scrollDirection: Axis.vertical,
           separatorBuilder: (BuildContext context, int index) =>
               const SizedBox(height: Dimensions.spacing),
           itemBuilder: (BuildContext context, int index) =>
-              _itemSmallVersionBuilder(context, index, isDarkTheme),
+              _itemSmallVersionBuilder(context, index, isDarkTheme, 16),
         ),
       ),
     );
