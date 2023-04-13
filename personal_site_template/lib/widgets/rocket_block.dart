@@ -20,7 +20,7 @@ class RocketBlock extends StatelessWidget {
     final styleTitle = theme.textTheme.titleLarge
         ?.copyWith(fontWeight: FontWeight.w300, height: 1.3, fontSize: 14);
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+      padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
       alignment: Alignment.bottomRight,
       child: Text(
         Strings.footerText,
@@ -73,8 +73,8 @@ class RocketBlock extends StatelessWidget {
             ],
           ),
           Container(
-              padding: EdgeInsets.fromLTRB(
-                  70 + rocketMargin, 0, 0, 200 + bottomMargin),
+              margin: EdgeInsets.fromLTRB(
+                  165 + rocketMargin, 0, 0, 85 + bottomMargin),
               child: const Ship(size: 40)),
           Container(
               padding: EdgeInsets.fromLTRB(
@@ -154,7 +154,6 @@ class Ship extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Shape shape=RoundedRectangleShape();
     String shipJson =
         '{"size":{"width":533.984375,"height":343.5703125},"nodes":[{"pos":{"dx":53.39857319836509,"dy":0},"prev":{"dx":53.39640202452291,"dy":12.144830585820651}},{"pos":{"dx":293.6910670040869,"dy":51.535831939562}},{"pos":{"dx":507.06064330488334,"dy":105.58167235092503}},{"pos":{"dx":533.0842845344233,"dy":107.13070366165209}},{"pos":{"dx":533.984375,"dy":239.25894868883586}},{"pos":{"dx":506.2066482603071,"dy":240.5234342343715}},{"pos":{"dx":293.6910670040869,"dy":292.0347806283981}},{"pos":{"dx":53.397487611443985,"dy":343.57061256795987},"next":{"dx":53.39640202452291,"dy":331.42578198213926}},{"pos":{"dx":37.756713114927635,"dy":311.17863636760626},"prev":{"dx":47.76654825183706,"dy":319.76586121967733},"next":{"dx":27.746877978018233,"dy":302.59141151553524}},{"pos":{"dx":0,"dy":297.7615176313894},"prev":{"dx":14.156053450795175,"dy":297.7615176313894}},{"pos":{"dx":0,"dy":45.80909493657065},"next":{"dx":14.156053450795175,"dy":45.80909493657065}},{"pos":{"dx":37.756713114927635,"dy":32.39197620035373},"prev":{"dx":27.746877978018233,"dy":40.97920105242471},"next":{"dx":47.76654825183706,"dy":23.80379113081072}}]}';
     String fireJson =
@@ -178,32 +177,62 @@ class Ship extends StatelessWidget {
     Decoration smokeDecoration = ShapeDecoration(
         shape: shipShape, shadows: [boxShadow], color: Colors.white);
     //
-    const smokeLine = 300;
+
+    double height = 300;
+    double width = 150;
+
+    double diagonalShip = math.sqrt(math.pow(height, 2) + math.pow(width, 2));
+    double rotationShip = math.asin(height / diagonalShip);
+
+    // double diagonalSmoke = math.sqrt(math.pow(height, 2) + math.pow(diagonalShip, 2));
+    // double rotationSmoke = math.asin(height / diagonalShip);
 
     return Stack(
-      alignment: Alignment.topRight,
       children: [
         Container(
-          padding: EdgeInsets.fromLTRB(0, size / 2, size / 2, 0),
-          child: Container(
-              decoration: fireDecoration,
-              child: SizedBox(height: size, width: size)),
+          height: height,
+          width: width,
+          alignment: Alignment.topRight,
+          child: Row(
+            children: [
+              const Expanded(child: SizedBox()),
+              Transform.rotate(
+                alignment: Alignment.bottomLeft,
+                origin: Offset(size, -(size + size)),
+                angle: -rotationShip,
+                //angle: 0.0,
+                child: Row(
+                  children: [
+                    Transform.rotate(
+                      angle: (math.pi / 4),
+                      child: Container(
+                          decoration: fireDecoration,
+                          child: SizedBox(height: size, width: size)),
+                    ),
+                    Transform.translate(
+                      offset: const Offset(-8, 0),
+                      child: Container(
+                          decoration: shipDecoration,
+                          child: SizedBox(height: size, width: size)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        Transform.rotate(
-          angle: -math.pi / 4,
-          child: Container(
-              decoration: shipDecoration,
-              child: SizedBox(height: size, width: size)),
-        ),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(0, (smokeLine / 2) + 20, 25, 0),
-            child: Transform.rotate(
-              angle: -math.pi / 4,
-              child: Container(
-                  //padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
-                  decoration: smokeDecoration,
-                  child: SizedBox(height: size, width: size + smokeLine)),
+        Container(
+          height: height,
+          width: diagonalShip,
+          alignment: Alignment.bottomLeft,
+          child: Transform.rotate(
+            origin: Offset(size / 2, -size / 2),
+            alignment: Alignment.bottomLeft,
+            angle: -rotationShip,
+            // angle: 0.0,
+            child: Container(
+              decoration: smokeDecoration,
+              child: SizedBox(height: size, width: diagonalShip - size),
             ),
           ),
         ),
