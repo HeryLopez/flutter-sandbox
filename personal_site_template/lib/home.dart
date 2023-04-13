@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: Strings.quality2BlockTitle,
       textTitleColor: Colors.black,
       textBodyColor: Colors.black,
-      body: Strings.quality3BlockBody,
+      body: Strings.quality2BlockBody,
       backgroundColor: Color(0xFFFFC03D),
     );
   }
