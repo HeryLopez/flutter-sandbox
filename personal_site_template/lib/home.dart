@@ -294,7 +294,8 @@ class _MyHomePageState extends State<MyHomePage> {
         final screenWidth = MediaQuery.of(context).size.width;
         final rocketMargin = screenWidth / 2;
         return RocketBlock(
-            contentMargin: contentMargin, rocketMargin: rocketMargin - 50);
+            contentMargin: contentMargin, rocketMargin: rocketMargin - 50,
+          takeoffWidth: 400,);
     }
   }
 
@@ -449,6 +450,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return RocketBlock(
           contentMargin: contentMargin,
           rocketMargin: contentMargin,
+          takeoffWidth: 400,
         );
     }
   }
@@ -592,7 +594,8 @@ class _MyHomePageState extends State<MyHomePage> {
       case 13:
         return RocketBlock(
           contentMargin: contentMargin,
-          rocketMargin: contentMargin,
+          rocketMargin: 8,
+          takeoffWidth: 80,
         );
     }
   }

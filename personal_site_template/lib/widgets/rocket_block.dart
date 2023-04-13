@@ -10,10 +10,14 @@ import '../utils/strings.dart';
 
 class RocketBlock extends StatelessWidget {
   const RocketBlock(
-      {super.key, required this.contentMargin, required this.rocketMargin});
+      {super.key,
+      required this.contentMargin,
+      required this.rocketMargin,
+      required this.takeoffWidth});
 
   final double contentMargin;
   final double rocketMargin;
+  final double takeoffWidth;
 
   Widget _footerBlock(BuildContext context) {
     final theme = Theme.of(context);
@@ -75,7 +79,7 @@ class RocketBlock extends StatelessWidget {
           Container(
               margin: EdgeInsets.fromLTRB(
                   165 + rocketMargin, 0, 0, 85 + bottomMargin),
-              child: const Ship(size: 40)),
+              child: Ship(size: 40, width: takeoffWidth)),
           Container(
               padding: EdgeInsets.fromLTRB(
                   0 + rocketMargin, 0, 0, 30 + bottomMargin),
@@ -148,9 +152,10 @@ class ColorLine extends StatelessWidget {
 }
 
 class Ship extends StatelessWidget {
-  const Ship({super.key, required this.size});
+  const Ship({super.key, required this.size, required this.width});
 
   final double size;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -178,61 +183,54 @@ class Ship extends StatelessWidget {
         shape: shipShape, shadows: [boxShadow], color: Colors.white);
     //
 
-    double height = 300;
-    double width = 150;
-
+    double height = 430;
     double diagonalShip = math.sqrt(math.pow(height, 2) + math.pow(width, 2));
     double rotationShip = math.asin(height / diagonalShip);
-
-    // double diagonalSmoke = math.sqrt(math.pow(height, 2) + math.pow(diagonalShip, 2));
-    // double rotationSmoke = math.asin(height / diagonalShip);
 
     return Stack(
       children: [
         Container(
           height: height,
-          width: width,
-          alignment: Alignment.topRight,
-          child: Row(
-            children: [
-              const Expanded(child: SizedBox()),
-              Transform.rotate(
-                alignment: Alignment.bottomLeft,
-                origin: Offset(size, -(size + size)),
-                angle: -rotationShip,
-                //angle: 0.0,
-                child: Row(
-                  children: [
-                    Transform.rotate(
-                      angle: (math.pi / 4),
-                      child: Container(
-                          decoration: fireDecoration,
-                          child: SizedBox(height: size, width: size)),
-                    ),
-                    Transform.translate(
-                      offset: const Offset(-8, 0),
-                      child: Container(
-                          decoration: shipDecoration,
-                          child: SizedBox(height: size, width: size)),
-                    ),
-                  ],
-                ),
+          width: diagonalShip - size * 3,
+          alignment: Alignment.bottomLeft,
+          child: Transform.rotate(
+            alignment: Alignment.bottomLeft,
+            angle: -rotationShip,
+            child: Transform.translate(
+              offset: Offset(0, size / 2),
+              child: Container(
+                decoration: smokeDecoration,
+                child: SizedBox(height: size, width: diagonalShip - size * 3.2),
               ),
-            ],
+            ),
           ),
         ),
         Container(
           height: height,
-          width: diagonalShip,
+          width: width,
           alignment: Alignment.bottomLeft,
           child: Transform.rotate(
-            origin: Offset(size / 2, -size / 2),
             alignment: Alignment.bottomLeft,
             angle: -rotationShip,
-            // angle: 0.0,
-            child: Container(
-              decoration: smokeDecoration,
-              child: SizedBox(height: size, width: diagonalShip - size),
+            child: Transform.translate(
+              offset: Offset(0 + diagonalShip - size * 3, size / 2),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Transform.rotate(
+                    angle: (math.pi / 4),
+                    child: Container(
+                        decoration: fireDecoration,
+                        child: SizedBox(height: size, width: size)),
+                  ),
+                  Transform.translate(
+                    offset: const Offset(-8, 0),
+                    child: Container(
+                        decoration: shipDecoration,
+                        child: SizedBox(height: size, width: size)),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
