@@ -40,8 +40,7 @@ class RocketBlock extends StatelessWidget {
 
     const bottomMargin = 15.0;
     const colorHeightBase = 13.0;
-    return Container(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+    return SizedBox(
       width: double.infinity,
       height: 500,
       child: Stack(
@@ -77,9 +76,10 @@ class RocketBlock extends StatelessWidget {
             ],
           ),
           Container(
-              margin: EdgeInsets.fromLTRB(
-                  165 + rocketMargin, 0, 0, 85 + bottomMargin),
-              child: Ship(size: 40, width: takeoffWidth)),
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 85 + bottomMargin),
+              child: Transform.translate(
+                  offset: Offset(165 + rocketMargin, 0),
+                  child: Ship(size: 40, width: takeoffWidth))),
           Container(
               padding: EdgeInsets.fromLTRB(
                   0 + rocketMargin, 0, 0, 30 + bottomMargin),
@@ -191,7 +191,7 @@ class Ship extends StatelessWidget {
       children: [
         Container(
           height: height,
-          width: diagonalShip - size * 3,
+          width: diagonalShip - size * 3.2,
           alignment: Alignment.bottomLeft,
           child: Transform.rotate(
             alignment: Alignment.bottomLeft,
@@ -199,8 +199,9 @@ class Ship extends StatelessWidget {
             child: Transform.translate(
               offset: Offset(0, size / 2),
               child: Container(
+                height: size, width: diagonalShip - size * 3.2,
                 decoration: smokeDecoration,
-                child: SizedBox(height: size, width: diagonalShip - size * 3.2),
+                child: const SizedBox(),
               ),
             ),
           ),
