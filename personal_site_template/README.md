@@ -1,6 +1,6 @@
-# personal_site_template
+# Hery's site 
 
-A new Flutter project.
+Experienced Developer | Mobile Development | Creative Solutions | Android - Flutter | Collaborative Expertise.
 
 ## Getting Started
 
