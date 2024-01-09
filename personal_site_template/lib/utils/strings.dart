@@ -29,7 +29,7 @@ class Strings {
   // SocialNetwork1Block
   static const String socialNetwork1BlockLightImage = "images/instagram_light.png";
   static const String socialNetwork1BlockDarkImage = "images/instagram_night.png";
-  static const String socialNetwork1BlockUrl = "https://www.instagram.com/walkingthemilkyway/";
+  static const String socialNetwork1BlockUrl = "https://www.instagram.com/walking_the_milky_way/";
 
   // SocialNetwork2Block
   static const String socialNetwork2BlockLightImage = "images/linkedin_day.png";
