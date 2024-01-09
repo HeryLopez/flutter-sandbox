@@ -12,7 +12,8 @@ class ImageVersusBlock extends StatelessWidget {
       this.topImagePath,
       this.bottomImagePath,
       this.topText,
-      this.bottomText, this.title});
+      this.bottomText,
+      this.title});
 
   final String? title;
   final Color topColor;
@@ -33,8 +34,9 @@ class ImageVersusBlock extends StatelessWidget {
         height: 1.5,
         fontSize: 16);
 
-    final styleBody = theme.textTheme.labelLarge
-        ?.copyWith(color: theme.colorScheme.onPrimary);
+    final styleBody = theme.textTheme.labelLarge?.copyWith(
+      color: Colors.white,
+    );
 
     return Container(
         decoration: BoxDecoration(
@@ -68,7 +70,6 @@ class ImageVersusBlock extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-
                       Expanded(
                         child: IconText(
                             imagePath: bottomImagePath,

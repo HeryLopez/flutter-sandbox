@@ -30,7 +30,7 @@ class ImageBlock extends StatelessWidget {
     final theme = Theme.of(context);
 
     final styleTitle = theme.textTheme.labelLarge
-        ?.copyWith(color: theme.colorScheme.onPrimary);
+        ?.copyWith(color: Colors.white);
 
     final styleBody = theme.textTheme.labelLarge
         ?.copyWith(fontWeight: FontWeight.w100, fontSize: 12);
